@@ -1,0 +1,93 @@
+ALL TEXT ON THE NEST / HOMEPAGE (index.html)
+=============================================
+Edit the text under each numbered label. Don't change the labels
+themselves — I'll use them to put your edits back in the right place.
+
+To DELETE something, put an x on the label line, like this:
+  [7] x  heading on tile 1:
+...and I'll take that bit out of the page. Deleting a whole tile:
+put the x on the tile's own header line ([TILE 1], [TILE 2], etc.).
+
+Nothing else on the page is text — everything else is a drawing.
+
+
+BROWSER TAB
+-----------
+
+[1] the name that shows in the browser tab / bookmark:
+Anna's Nest
+
+
+TOP OF THE PAGE
+---------------
+
+[2] small green line above the title:
+Everything I made for you
+
+[3] big title, first line:
+Anna's Platypus Nest
+
+[4] big title, second line (the red italic one):
+of Gifts
+
+[5] the line under the title:
+Three doors so far — a letter, a lake, and a tape. There will be more of them as I keep building.
+
+
+[TILE 1] — the red one, opens the letter
+----------------------------------------
+
+[6] little badge in the corner of the picture:
+Open
+
+[7] heading:
+Per Anna
+
+[8] blurb under the heading:
+The airmail letter that started all of this. Flip it over, break the seal, and read the whole story — the mixer, the 1 AM message, the coffee at Kinship, the photo wall.
+
+
+[TILE 2] — the blue one, opens the game
+---------------------------------------
+
+[9] little badge in the corner of the picture:
+Open
+
+[10] heading:
+Lago di Anna
+
+[11] blurb under the heading:
+A tiny Lake Como to wander around. Five little games are hidden across the map — the cat family tree, the turning bloom, the dog in the dark, the squirrels, the creek arcade — and a letter waits at the fruit stall when they're all done.
+
+
+[TILE 3] — the green one, opens the mixtape
+-------------------------------------------
+
+[12] little badge in the corner of the picture:
+Open
+
+[13] heading:
+The Mixtape
+
+[14] blurb under the heading:
+Ten songs for you, five to a side — Jalen Ngonda, Sade, Cleo Sol, Chet Baker, Dean Martin. Press play on the deck, and every J-card unfolds into the reason I picked that one.
+
+
+[THE DASHED BOX] — the one that isn't built yet
+-----------------------------------------------
+
+[15] heading:
+The fourth one, soon
+
+[16] line under it:
+Still building. It'll show up right here when it's ready.
+
+
+BOTTOM OF THE PAGE
+------------------
+
+[17] the italic line under the three colored bars:
+House rule number one: never come home drunk.
+
+[18] the small green line at the very bottom:
+Made for Anna

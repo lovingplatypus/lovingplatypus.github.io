@@ -1,4 +1,4 @@
-ALL TEXT IN THE LETTER (index.html)
+ALL TEXT IN THE LETTER (letter.html)
 ====================================
 Edit the text under each numbered label. Don't change the labels
 themselves — I'll use them to put your edits back in the right place.

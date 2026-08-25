@@ -1,1046 +1,312 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex">
-<title>Per Anna</title>
+<title>Anna's Nest</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&amp;family=Caveat:wght@500;600&amp;family=Courier+Prime:wght@400;700&amp;display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-  html{scroll-behavior:smooth}
-  body{margin:0;background:#F7F2E9;color:#2B2118;font-family:'Newsreader',Georgia,serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
-  a{color:#33548C}
-  a:hover{color:#B8452F}
-  ::selection{background:#C89B4B;color:#2B2118}
-  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
-  @keyframes march{to{stroke-dashoffset:-26}}
-  @keyframes steamUp{0%,100%{transform:translateY(0);opacity:.15}50%{transform:translateY(-8px);opacity:.6}}
-  @keyframes driftA{from{transform:translate(0,0)}to{transform:translate(5px,-4px)}}
-  @keyframes driftB{from{transform:translate(0,0)}to{transform:translate(-5px,3px)}}
-  @keyframes buzz{0%,100%{transform:rotate(0)}20%{transform:rotate(1.3deg)}40%{transform:rotate(-1.1deg)}60%{transform:rotate(.7deg)}80%{transform:rotate(-.5deg)}}
-  @media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none!important;transition-duration:.01ms!important}}
-  .pw{column-count:2;column-gap:18px}
-  @media (min-width:640px){.pw{column-count:3;column-gap:22px}}
-  @media (min-width:960px){.pw{column-count:4;column-gap:24px}}
-  #envelope:hover{transform:translateY(-5px)}
-  #envelope:focus-visible{box-shadow:0 0 0 3px #C89B4B;border-radius:8px}
-  .ticket:hover{transform:translateY(-6px)!important;box-shadow:0 24px 52px rgba(43,33,24,.24)!important}
-  .ticket:focus-visible{box-shadow:0 0 0 3px #C89B4B!important}
+  *      { margin:0; padding:0; box-sizing:border-box; }
+  :root  { --cream:#fbf6ec; --card:#fffdf8; --ink:#243029; --ink-dark:#1d2a24;
+           --red:#c23c34; --blue:#2f6aa8; --green:#3f8f68; }
+  body   { background:var(--cream); color:var(--ink); overflow-x:hidden; -webkit-font-smoothing:antialiased;
+           font-family:'Jost',system-ui,sans-serif; }
+  a      { color:var(--red); text-decoration:none; }
+
+  @keyframes nestFloat { 0%,100%{transform:translateY(0)}   50%{transform:translateY(-7px)} }
+  @keyframes nestSway  { 0%,100%{transform:rotate(-3deg)}   50%{transform:rotate(3deg)} }
+  @keyframes nestDrift { 0%{opacity:0;transform:translateY(6px)} 100%{opacity:1;transform:translateY(0)} }
+
+  .page   { position:relative; min-height:100vh; overflow:hidden; background:var(--cream);
+            padding:clamp(28px,5vw,72px) clamp(20px,5vw,56px) 64px; }
+  .inner  { position:relative; max-width:1180px; margin:0 auto; }
+
+  /* — scattered line-art backdrop — */
+  .backdrop     { position:absolute; inset:0; pointer-events:none; overflow:hidden; }
+  .backdrop div { position:absolute; }
+
+  /* — header — */
+  header    { text-align:center; margin:0 0 clamp(34px,5vw,62px); animation:nestDrift .7s ease-out both; }
+  .rule     { display:flex; align-items:center; justify-content:center; gap:14px; margin-bottom:18px; }
+  .rule i   { height:1px; width:54px; display:block; }
+  .eyebrow  { margin:0 0 12px; font:400 11px/1 'Jost',sans-serif; letter-spacing:.34em;
+              text-transform:uppercase; color:var(--green); }
+  h1        { font-family:'Cormorant Garamond',serif; font-weight:400; font-size:clamp(38px,6.4vw,74px);
+              line-height:1.02; letter-spacing:-.012em; color:var(--ink-dark); }
+  h1 em     { font-weight:300; font-style:italic; color:var(--red); }
+  .lede     { margin:20px auto 0; max-width:430px; font:300 14.5px/1.7 'Jost',sans-serif;
+              color:rgba(36,48,41,.62); }
+
+  /* — tiles — */
+  .grid  { display:grid; grid-template-columns:repeat(12,minmax(0,1fr)); gap:22px; }
+  .tile  { grid-column:span 6; display:flex; flex-direction:column; overflow:hidden; border-radius:5px;
+           border:1.5px solid var(--accent); background:var(--card); color:inherit;
+           transition:transform .3s cubic-bezier(.2,.7,.3,1), box-shadow .3s; }
+  .tile:hover  { transform:translateY(-5px); box-shadow:8px 8px 0 var(--accent); }
+  .tile .art   { position:relative; height:290px; background:var(--wash); }
+  .tile .art svg { display:block; width:100%; height:100%; }
+  .tile .open  { position:absolute; top:14px; right:14px; padding:5px 10px; background:var(--accent);
+                 color:var(--card); font:400 9.5px/1 'Jost',sans-serif; letter-spacing:.22em;
+                 text-transform:uppercase; }
+  .tile .say   { display:flex; align-items:flex-start; gap:16px; padding:22px 24px 24px;
+                 border-top:1.5px solid var(--accent); }
+  .tile .say > svg { flex:none; margin-top:5px; }
+  .tile h2     { font-family:'Cormorant Garamond',serif; font-weight:400; font-size:34px;
+                 line-height:1.05; color:var(--ink-dark); }
+  .tile p      { margin:6px 0 0; font:300 13.5px/1.6 'Jost',sans-serif; color:rgba(36,48,41,.6); }
+
+  .tile.wide       { grid-column:span 12; flex-direction:row; align-items:stretch; }
+  .tile.wide .art  { flex:0 0 40%; height:236px; padding:18px; }
+  .tile.wide .say  { flex:1; align-items:center; border-top:none; border-left:1.5px solid var(--accent); }
+
+  /* — the not-yet-built one — */
+  .soon    { grid-column:span 12; display:flex; align-items:center; gap:18px; min-height:120px;
+             border-radius:5px; border:1.5px dashed var(--green); background:#f2f8f2; padding:26px 30px; }
+  .soon h2 { font-family:'Cormorant Garamond',serif; font-weight:400; font-size:26px;
+             line-height:1.1; color:#2a5c45; }
+  .soon p  { margin:5px 0 0; font:300 13px/1.6 'Jost',sans-serif; color:rgba(36,48,41,.55); }
+
+  /* — footer — */
+  footer     { margin:clamp(40px,6vw,72px) auto 0; max-width:560px; text-align:center; }
+  .bars      { display:flex; justify-content:center; gap:6px; margin-bottom:22px; }
+  .bars span { width:44px; height:2px; }
+  .vow       { font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:300;
+               font-size:18px; line-height:1.6; color:rgba(36,48,41,.62); }
+  .sig       { margin:10px 0 0; font:300 10.5px/1 'Jost',sans-serif; letter-spacing:.28em;
+               text-transform:uppercase; color:var(--green); }
+
+  @media (max-width:820px) {
+    .grid                 { grid-template-columns:minmax(0,1fr); }
+    .tile, .tile.wide,
+    .soon                 { grid-column:1 / -1; }
+    .tile, .tile.wide     { flex-direction:column; }
+    .tile .art            { height:230px; }
+    .tile.wide .art       { flex:none; height:230px; }
+    .tile.wide .say       { border-left:none; border-top:1.5px solid var(--accent); align-items:flex-start; }
+    .backdrop             { display:none; }
+  }
 </style>
 </head>
 <body>
 
-<!-- ==================== ENVELOPE ==================== -->
-<div id="stage" style="position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse at 50% 30%, #FBF7EF 0%, #EFE7D8 100%);transition:opacity 1s ease;">
-  <div style="perspective:1200px;text-align:center;padding:20px;">
-    <div id="hint" style="font-family:'Caveat',cursive;font-weight:600;font-size:1.5rem;color:#6B5D4E;margin-bottom:28px;animation:bob 2.6s ease-in-out infinite;transition:opacity .4s ease;">flip it over</div>
-    <div id="envelope" role="button" tabindex="0" aria-label="An airmail envelope addressed to Anna. Press once to flip it over." style="position:relative;width:min(480px,88vw);aspect-ratio:480/310;margin:0 auto;cursor:pointer;transition:transform .5s ease;outline:none;transform-style:preserve-3d;">
-      <div id="flip" style="position:absolute;inset:0;transform-style:preserve-3d;transition:transform .95s cubic-bezier(.45,.05,.3,1);">
-      <!-- BACK FACE: seal side -->
-      <div style="position:absolute;inset:0;transform:rotateY(180deg);backface-visibility:hidden;-webkit-backface-visibility:hidden;">
-      <!-- letter inside -->
-      <div id="letter" style="position:absolute;left:6%;right:6%;top:14%;bottom:8%;z-index:1;background:#FFFDF7;border:1px solid #E4DAC6;border-radius:4px 4px 0 0;box-shadow:0 -10px 24px rgba(43,33,24,.1);display:flex;flex-direction:column;align-items:center;gap:7px;padding-top:24px;transition:transform 1.1s cubic-bezier(.5,0,.2,1);">
-        <div style="font-family:'Courier Prime',monospace;font-size:.6rem;letter-spacing:.32em;text-transform:uppercase;color:#B8452F;">for your birthday</div>
-      </div>
-      <!-- envelope back body -->
-      <div style="position:absolute;inset:0;background:#FCF8EF;border:1px solid #D8CDB8;border-radius:6px;overflow:hidden;z-index:2;box-shadow:inset 0 0 46px rgba(43,33,24,.06), 0 26px 44px rgba(43,33,24,.22);">
-        <div aria-hidden="true" style="position:absolute;left:0;right:0;top:0;height:12px;background:#FCF8EF;overflow:hidden;"><svg width="100%" height="12" style="display:block;width:100%;height:12px;"><defs><pattern id="vyshBand" width="24" height="12" patternUnits="userSpaceOnUse"><g fill="#B8452F"><rect x="10" y="0" width="4" height="4"></rect><rect x="6" y="4" width="4" height="4"></rect><rect x="14" y="4" width="4" height="4"></rect><rect x="10" y="8" width="4" height="4"></rect></g><g fill="#33548C"><rect x="10" y="4" width="4" height="4"></rect><rect x="0" y="4" width="2" height="4"></rect><rect x="22" y="4" width="2" height="4"></rect><rect x="0" y="0" width="2" height="2"></rect><rect x="22" y="0" width="2" height="2"></rect><rect x="0" y="10" width="2" height="2"></rect><rect x="22" y="10" width="2" height="2"></rect></g></pattern></defs><rect width="100%" height="12" fill="url(#vyshBand)"></rect></svg></div>
-        <div aria-hidden="true" style="position:absolute;left:0;right:0;bottom:0;height:12px;background:#FCF8EF;overflow:hidden;"><svg width="100%" height="12" style="display:block;width:100%;height:12px;"><defs><pattern id="vyshBand" width="24" height="12" patternUnits="userSpaceOnUse"><g fill="#B8452F"><rect x="10" y="0" width="4" height="4"></rect><rect x="6" y="4" width="4" height="4"></rect><rect x="14" y="4" width="4" height="4"></rect><rect x="10" y="8" width="4" height="4"></rect></g><g fill="#33548C"><rect x="10" y="4" width="4" height="4"></rect><rect x="0" y="4" width="2" height="4"></rect><rect x="22" y="4" width="2" height="4"></rect><rect x="0" y="0" width="2" height="2"></rect><rect x="22" y="0" width="2" height="2"></rect><rect x="0" y="10" width="2" height="2"></rect><rect x="22" y="10" width="2" height="2"></rect></g></pattern></defs><rect width="100%" height="12" fill="url(#vyshBand)"></rect></svg></div>
-        <svg aria-hidden="true" viewBox="0 0 480 310" preserveAspectRatio="none" style="position:absolute;inset:0;width:100%;height:100%;">
-          <path d="M6,296 L240,160 L474,296" fill="none" stroke="#D8CDB8" stroke-width="1.5"></path>
-        </svg>
-        <div style="position:absolute;left:50%;top:62%;transform:translateX(-50%);font-family:'Caveat',cursive;font-size:1.15rem;color:#6B5D4E;white-space:nowrap;">від Дмитра · Нью-Йорк</div>
-      </div>
-      <!-- flap -->
-      <div id="flap" aria-hidden="true" style="position:absolute;left:0;right:0;top:0;height:54%;z-index:3;transform-origin:top center;transform-style:preserve-3d;transition:transform 1s cubic-bezier(.6,.05,.3,1);">
-        <svg viewBox="0 0 480 168" preserveAspectRatio="none" style="width:100%;height:100%;display:block;">
-          <defs>
-            <linearGradient id="flapG" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stop-color="#F8F2E6"></stop>
-              <stop offset="1" stop-color="#EBDFC9"></stop>
-            </linearGradient>
-          </defs>
-          <path d="M0,0 L480,0 L248,164 Q240,169.5 232,164 Z" fill="url(#flapG)" stroke="#D8CDB8" stroke-width="1"></path>
-        </svg>
-      </div>
-      <!-- wax seal -->
-      <div id="seal" aria-hidden="true" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:4;width:96px;height:96px;filter:drop-shadow(0 6px 10px rgba(80,20,10,.4));transition:transform .45s cubic-bezier(.3,1.3,.5,1), opacity .5s ease;">
-        <svg viewBox="0 0 100 100" style="display:block;width:100%;height:100%;">
-          <defs>
-            <radialGradient id="waxG" cx="38%" cy="30%" r="75%">
-              <stop offset="0" stop-color="#DA7156"></stop>
-              <stop offset="0.42" stop-color="#BC4A32"></stop>
-              <stop offset="0.78" stop-color="#9B3722"></stop>
-              <stop offset="1" stop-color="#7C2917"></stop>
-            </radialGradient>
-            <radialGradient id="waxHi" cx="36%" cy="26%" r="34%">
-              <stop offset="0" stop-color="rgba(255,235,220,.5)"></stop>
-              <stop offset="1" stop-color="rgba(255,235,220,0)"></stop>
-            </radialGradient>
-          </defs>
-          <path d="M50,7 C60,5 69,9 76.5,15.5 C84,22 91.5,31 92,42.5 C92.5,53 88.5,62 82.5,70 C76,78.5 64,90.5 52,91 C40,91.5 29,85.5 21,77.5 C13,69.5 8.5,58 9,46 C9.5,35 15,25 23,17 C30.5,9.5 40,9 50,7 Z" fill="url(#waxG)" stroke="#6E2113" stroke-width="1"></path>
-          <ellipse cx="90" cy="57" rx="4.5" ry="6" fill="#96331F" transform="rotate(18 90 57)"></ellipse>
-          <ellipse cx="12" cy="38" rx="3.6" ry="5" fill="#A63C25" transform="rotate(-15 12 38)"></ellipse>
-          <path d="M50,7 C60,5 69,9 76.5,15.5 C84,22 91.5,31 92,42.5 C92.5,53 88.5,62 82.5,70 C76,78.5 64,90.5 52,91 C40,91.5 29,85.5 21,77.5 C13,69.5 8.5,58 9,46 C9.5,35 15,25 23,17 C30.5,9.5 40,9 50,7 Z" fill="url(#waxHi)"></path>
-          <circle cx="50" cy="49" r="33" fill="none" stroke="rgba(255,214,190,.35)" stroke-width="1.6"></circle>
-          <circle cx="50" cy="50.8" r="33" fill="none" stroke="rgba(96,26,12,.55)" stroke-width="2"></circle>
-          <circle cx="50" cy="49.6" r="29" fill="rgba(140,45,26,.35)"></circle>
-          <text x="50" y="62" text-anchor="middle" font-family="Newsreader, serif" font-style="italic" font-size="37" fill="#5E1C0E" opacity=".85">A</text>
-          <text x="50" y="60.5" text-anchor="middle" font-family="Newsreader, serif" font-style="italic" font-size="37" fill="#F2CFB8">A</text>
-        </svg>
-      </div>
-      </div>
-      <!-- FRONT FACE: address side -->
-      <div style="position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;">
-      <div style="position:absolute;inset:0;background:#FCF8EF;border:1px solid #D8CDB8;border-radius:6px;overflow:hidden;box-shadow:inset 0 0 46px rgba(43,33,24,.06), 0 26px 44px rgba(43,33,24,.22);">
-        <div aria-hidden="true" style="position:absolute;left:0;right:0;top:0;height:12px;background:#FCF8EF;overflow:hidden;"><svg width="100%" height="12" style="display:block;width:100%;height:12px;"><defs><pattern id="vyshBand" width="24" height="12" patternUnits="userSpaceOnUse"><g fill="#B8452F"><rect x="10" y="0" width="4" height="4"></rect><rect x="6" y="4" width="4" height="4"></rect><rect x="14" y="4" width="4" height="4"></rect><rect x="10" y="8" width="4" height="4"></rect></g><g fill="#33548C"><rect x="10" y="4" width="4" height="4"></rect><rect x="0" y="4" width="2" height="4"></rect><rect x="22" y="4" width="2" height="4"></rect><rect x="0" y="0" width="2" height="2"></rect><rect x="22" y="0" width="2" height="2"></rect><rect x="0" y="10" width="2" height="2"></rect><rect x="22" y="10" width="2" height="2"></rect></g></pattern></defs><rect width="100%" height="12" fill="url(#vyshBand)"></rect></svg></div>
-        <div aria-hidden="true" style="position:absolute;left:0;right:0;bottom:0;height:12px;background:#FCF8EF;overflow:hidden;"><svg width="100%" height="12" style="display:block;width:100%;height:12px;"><defs><pattern id="vyshBand" width="24" height="12" patternUnits="userSpaceOnUse"><g fill="#B8452F"><rect x="10" y="0" width="4" height="4"></rect><rect x="6" y="4" width="4" height="4"></rect><rect x="14" y="4" width="4" height="4"></rect><rect x="10" y="8" width="4" height="4"></rect></g><g fill="#33548C"><rect x="10" y="4" width="4" height="4"></rect><rect x="0" y="4" width="2" height="4"></rect><rect x="22" y="4" width="2" height="4"></rect><rect x="0" y="0" width="2" height="2"></rect><rect x="22" y="0" width="2" height="2"></rect><rect x="0" y="10" width="2" height="2"></rect><rect x="22" y="10" width="2" height="2"></rect></g></pattern></defs><rect width="100%" height="12" fill="url(#vyshBand)"></rect></svg></div>
-        <div style="position:absolute;left:8%;top:36%;text-align:left;">
-          <div style="font-family:'Caveat',cursive;font-size:1.2rem;color:#6B5D4E;">per la signorina</div>
-          <div style="font-family:'Newsreader',serif;font-style:italic;font-size:clamp(1.9rem,6vw,2.7rem);line-height:1.05;">Anna</div>
-          <div style="font-family:'Courier Prime',monospace;font-size:.62rem;letter-spacing:.24em;text-transform:uppercase;color:#6B5D4E;margin-top:7px;">Lago di Como · Italia</div>
-          <div style="font-family:'Caveat',cursive;font-size:1.08rem;color:#B8452F;margin-top:8px;transform:rotate(-2deg);">do not open until July 25</div>
-        </div>
-        <!-- stamp -->
-        <div aria-hidden="true" style="position:absolute;right:5.5%;top:8%;width:19%;transform:rotate(3deg);">
-          <svg viewBox="0 0 60 72" style="display:block;width:100%;height:auto;filter:drop-shadow(0 2px 3px rgba(43,33,24,.18));">
-            <rect x="0.5" y="0.5" width="59" height="71" fill="#FDFAF3" stroke="#D8CDB8" stroke-width="1" stroke-dasharray="3 3"></rect>
-            <rect x="5" y="5" width="50" height="62" fill="#DCE8F0"></rect>
-            <circle cx="44" cy="17" r="6" fill="#C89B4B"></circle>
-            <path d="M5,36 L19,22 L29,32 L41,20 L55,32 L55,67 L5,67 Z" fill="#9FB8CE"></path>
-            <path d="M5,45 Q20,41 30,45 T55,45 L55,67 L5,67 Z" fill="#33548C" opacity=".85"></path>
-            <path d="M22,47 L24.5,58 Q25,60 27.5,60 L32.5,60 Q35,60 35.5,58 L38,47 Z" fill="#FDFAF3"></path>
-            <path d="M38,49.5 Q42.5,49.5 41.5,53 Q40.7,56 37,55" fill="none" stroke="#FDFAF3" stroke-width="1.4"></path>
-            <path d="M27,44 C26,42 28,40.5 27,38.5 M33,44 C32,42 34,40.5 33,38.5" fill="none" stroke="#FDFAF3" stroke-width="1.2" stroke-linecap="round"></path>
-            <text x="30" y="65.5" text-anchor="middle" font-size="4.6" fill="#FDFAF3" font-family="Courier Prime, monospace" letter-spacing="1.4">LAGO DI COMO</text>
-          </svg>
-        </div>
-        <!-- postmark -->
-        <div aria-hidden="true" style="position:absolute;right:22%;top:5%;width:24%;aspect-ratio:1;transform:rotate(-9deg);opacity:.72;">
-          <svg viewBox="0 0 100 100" style="width:100%;height:100%;display:block;">
-            <circle cx="50" cy="50" r="47" fill="none" stroke="#33548C" stroke-width="2.5"></circle>
-            <circle cx="50" cy="50" r="33" fill="none" stroke="#33548C" stroke-width="1.2"></circle>
-            <text x="50" y="47" text-anchor="middle" font-size="10.5" font-weight="700" fill="#33548C" font-family="Courier Prime, monospace">NYC→COMO</text>
-            <text x="50" y="61" text-anchor="middle" font-size="9" fill="#33548C" font-family="Courier Prime, monospace">25·07·2026</text>
-          </svg>
-        </div>
-        <!-- cancellation waves -->
-        <svg aria-hidden="true" viewBox="0 0 160 40" style="position:absolute;right:3%;top:16%;width:33%;opacity:.5;">
-          <path d="M0,8 Q20,2 40,8 T80,8 T120,8 T160,8 M0,20 Q20,14 40,20 T80,20 T120,20 T160,20 M0,32 Q20,26 40,32 T80,32 T120,32 T160,32" fill="none" stroke="#33548C" stroke-width="1.6"></path>
-        </svg>
-        <!-- par avion -->
-        <div style="position:absolute;left:8%;bottom:9%;display:flex;align-items:center;gap:9px;">
-          <div aria-hidden="true" style="width:38px;height:10px;background:repeating-linear-gradient(135deg,#B8452F 0 5px,#FCF8EF 5px 9px,#33548C 9px 14px,#FCF8EF 14px 18px);"></div>
-          <div style="font-family:'Courier Prime',monospace;font-size:.6rem;letter-spacing:.3em;color:#33548C;">PAR AVION</div>
-        </div>
-      </div>
-      </div>
-      </div>
+<div class="page">
+
+  <!-- the little drawings floating behind everything -->
+  <div class="backdrop" aria-hidden="true">
+    <div style="top:4%;left:2%;opacity:.32;animation:nestFloat 9s ease-in-out infinite">
+      <svg width="156" height="92" viewBox="0 0 68 40" fill="none"><ellipse cx="34" cy="22" rx="20" ry="10.5" stroke="#3f8f68" stroke-width="1.2"/><path d="M14 20c-4-1-8 .5-9.5 3.2-1.4 2.6.4 5 4 5.4 3.2.4 6.4-.9 7.6-3" stroke="#3f8f68" stroke-width="1.2" stroke-linejoin="round"/><path d="M50 15c3.5-3.5 8.2-4.6 10.6-2.6 2.3 1.9 1.3 5.4-2 8" stroke="#3f8f68" stroke-width="1.2" stroke-linecap="round"/><circle cx="27" cy="19" r="1.2" fill="#3f8f68"/></svg>
     </div>
+    <div style="top:8%;right:4%;opacity:.3;animation:nestSway 12s ease-in-out infinite">
+      <svg width="116" height="116" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="3.2" stroke="#c23c34" stroke-width="1"/><circle cx="20" cy="20" r="7.2" stroke="#c23c34" stroke-width=".9"/><circle cx="20" cy="20" r="11.4" stroke="#c23c34" stroke-width=".9"/><circle cx="20" cy="20" r="15.6" stroke="#c23c34" stroke-width=".9"/><path d="M20 36v3.5" stroke="#c23c34" stroke-width=".9"/></svg>
+    </div>
+    <div style="top:30%;left:-2%;opacity:.26">
+      <svg width="130" height="130" viewBox="0 0 40 40" fill="none"><path d="M23 24a9 9 0 10-9-9c0 3.6 3 5.6 5.6 5.6 2 0 3.4-1.3 3.4-3 0-1.5-1.2-2.6-2.6-2.6-1.1 0-2 .8-2 1.8" stroke="#2f6aa8" stroke-width="1" stroke-linecap="round"/><path d="M14 24c-4 1.5-7 3-8 4.5M6 28.5h22" stroke="#2f6aa8" stroke-width="1" stroke-linecap="round"/><path d="M9 24.5l-1.5-4M12 23.5l-1-4.2" stroke="#2f6aa8" stroke-width=".9" stroke-linecap="round"/></svg>
+    </div>
+    <div style="top:46%;right:-1%;opacity:.26">
+      <svg width="122" height="122" viewBox="0 0 40 40" fill="none"><path d="M13 33V19c0-4 2-7 4-9M27 33V19c0-4-2-7-4-9" stroke="#3f8f68" stroke-width="1"/><path d="M17 10l-3-4-4 1M17 10l-1-5M23 10l3-4 4 1M23 10l1-5" stroke="#3f8f68" stroke-width="1" stroke-linecap="round"/><ellipse cx="20" cy="14" rx="3.4" ry="4.6" stroke="#3f8f68" stroke-width="1"/></svg>
+    </div>
+    <div style="bottom:5%;left:7%;opacity:.28;animation:nestFloat 11s ease-in-out infinite">
+      <svg width="108" height="108" viewBox="0 0 40 40" fill="none"><path d="M20 4v32M4 20h32M8.7 8.7l22.6 22.6M31.3 8.7L8.7 31.3" stroke="#2f6aa8" stroke-width="1" stroke-linecap="round"/><path d="M20 10l-3 3M20 10l3 3M20 30l-3-3M20 30l3-3M10 20l3-3M10 20l3 3M30 20l-3-3M30 20l-3 3" stroke="#2f6aa8" stroke-width=".9" stroke-linecap="round"/></svg>
+    </div>
+    <div style="bottom:13%;right:8%;opacity:.28">
+      <svg width="98" height="98" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="22" r="10" stroke="#c23c34" stroke-width="1"/><path d="M20 12c0-3 1.5-5 4-6" stroke="#c23c34" stroke-width="1" stroke-linecap="round"/><circle cx="16" cy="19" r="1.1" fill="#c23c34"/><circle cx="23" cy="19" r="1.1" fill="#c23c34"/><circle cx="19" cy="24" r="1.1" fill="#c23c34"/><circle cx="24" cy="25" r="1.1" fill="#c23c34"/><circle cx="14" cy="24" r="1.1" fill="#c23c34"/></svg>
+    </div>
+    <div style="top:63%;left:24%;opacity:.22">
+      <svg width="154" height="62" viewBox="0 0 80 32" fill="none"><path d="M2 24h76" stroke="#2f6aa8" stroke-width="1"/><path d="M4 24c4-6 9-6 13 0s9 6 13 0 9-6 13 0 9 6 13 0 9-6 11-2" stroke="#2f6aa8" stroke-width="1"/></svg>
+    </div>
+    <div style="top:19%;left:43%;opacity:.2;animation:nestSway 15s ease-in-out infinite">
+      <svg width="92" height="92" viewBox="0 0 40 40" fill="none"><path d="M20 6l9 6v14l-9 6-9-6V12l9-6z" stroke="#3f8f68" stroke-width="1"/><path d="M20 6v28M11 12l18 14M29 12L11 26" stroke="#3f8f68" stroke-width=".8"/></svg>
+    </div>
+    <div style="bottom:33%;left:45%;opacity:.22">
+      <svg width="88" height="88" viewBox="0 0 40 40" fill="none"><rect x="8" y="12" width="24" height="17" rx="1.5" stroke="#c23c34" stroke-width="1"/><path d="M16 12v17M24 12v17M8 20.5h24" stroke="#c23c34" stroke-width=".9"/></svg>
+    </div>
+    <div style="top:51%;right:25%;opacity:.22">
+      <svg width="82" height="82" viewBox="0 0 40 40" fill="none"><path d="M13 30V11l16 4v15" stroke="#c23c34" stroke-width="1" stroke-linecap="round"/><ellipse cx="10" cy="30" rx="3.2" ry="2.6" stroke="#c23c34" stroke-width="1"/><ellipse cx="26" cy="30" rx="3.2" ry="2.6" stroke="#c23c34" stroke-width="1"/></svg>
+    </div>
+    <div style="top:77%;right:37%;opacity:.22">
+      <svg width="80" height="80" viewBox="0 0 40 40" fill="none"><path d="M8 32l3-9L26 8l6 6-15 15-9 3z" stroke="#3f8f68" stroke-width="1" stroke-linejoin="round"/><path d="M23 11l6 6M11 23l6 6" stroke="#3f8f68" stroke-width=".9"/></svg>
+    </div>
+    <div style="top:37%;left:69%;opacity:.22">
+      <svg width="76" height="76" viewBox="0 0 40 40" fill="none"><ellipse cx="19" cy="24" rx="7" ry="5" stroke="#2f6aa8" stroke-width="1"/><ellipse cx="27" cy="17" rx="4.2" ry="3.2" stroke="#2f6aa8" stroke-width="1"/><path d="M30 14.5c1-2 .4-4-1-5M24.5 14c-.5-2.2.3-4 1.8-4.8" stroke="#2f6aa8" stroke-width="1" stroke-linecap="round"/><path d="M13 27l-3 3M25 28l2 3" stroke="#2f6aa8" stroke-width="1" stroke-linecap="round"/></svg>
+    </div>
+    <div style="bottom:2%;left:59%;opacity:.24">
+      <svg width="90" height="90" viewBox="0 0 40 40" fill="none"><path d="M20 34V10l12-3v20" stroke="#3f8f68" stroke-width="1" stroke-linecap="round"/><circle cx="16" cy="34" r="4" stroke="#3f8f68" stroke-width="1"/><circle cx="28" cy="27" r="4" stroke="#3f8f68" stroke-width="1"/></svg>
+    </div>
+    <div style="top:2%;left:65%;opacity:.24">
+      <svg width="72" height="72" viewBox="0 0 40 40" fill="none"><path d="M20 32c-7-5-13-9-13-15A6.6 6.6 0 0120 14a6.6 6.6 0 0113 3c0 6-6 10-13 15z" stroke="#c23c34" stroke-width="1" stroke-linejoin="round"/></svg>
+    </div>
+  </div>
+
+  <div class="inner">
+
+    <header>
+      <div class="rule">
+        <i style="background:#c23c34"></i>
+        <svg width="40" height="24" viewBox="0 0 68 40" fill="none" style="animation:nestFloat 6s ease-in-out infinite">
+          <ellipse cx="34" cy="22" rx="20" ry="10.5" stroke="#243029" stroke-width="1.5"/>
+          <path d="M14 20c-4-1-8 .5-9.5 3.2-1.4 2.6.4 5 4 5.4 3.2.4 6.4-.9 7.6-3" stroke="#c23c34" stroke-width="1.5" stroke-linejoin="round"/>
+          <path d="M50 15c3.5-3.5 8.2-4.6 10.6-2.6 2.3 1.9 1.3 5.4-2 8" stroke="#3f8f68" stroke-width="1.5" stroke-linecap="round"/>
+          <circle cx="27" cy="19" r="1.3" fill="#243029"/>
+        </svg>
+        <i style="background:#3f8f68"></i>
+      </div>
+      <p class="eyebrow">Everything I made for you</p>
+      <h1>Anna's Platypus Nest<br><em>of Gifts</em></h1>
+      <p class="lede">Three doors so far &mdash; a letter, a lake, and a tape. There will be more of them as I keep building.</p>
+    </header>
+
+    <div class="grid">
+
+      <!-- 1 · the letter -->
+      <a class="tile" href="./letter.html" style="--accent:#c23c34;--wash:#f6ece7">
+        <div class="art">
+          <svg viewBox="0 0 300 248" fill="none" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+            <g transform="translate(38 49)">
+              <rect x="0" y="0" width="224" height="150" rx="3" fill="#fffdf8" stroke="#c23c34" stroke-width="1.6"/>
+              <clipPath id="envClip"><rect x="0" y="0" width="224" height="150" rx="3"/></clipPath>
+              <g clip-path="url(#envClip)" stroke-width="7" opacity=".6">
+                <path d="M-4 6l12-12M28 6l12-12M60 6l12-12M92 6l12-12M124 6l12-12M156 6l12-12M188 6l12-12M220 6l12-12" stroke="#c23c34"/>
+                <path d="M12 6l12-12M44 6l12-12M76 6l12-12M108 6l12-12M140 6l12-12M172 6l12-12M204 6l12-12" stroke="#2f6aa8"/>
+                <path d="M-4 156l12-12M28 156l12-12M60 156l12-12M92 156l12-12M124 156l12-12M156 156l12-12M188 156l12-12M220 156l12-12" stroke="#c23c34"/>
+                <path d="M12 156l12-12M44 156l12-12M76 156l12-12M108 156l12-12M140 156l12-12M172 156l12-12M204 156l12-12" stroke="#2f6aa8"/>
+              </g>
+              <path d="M0 4l112 78L224 4" stroke="#c23c34" stroke-width="1.4" fill="none"/>
+              <rect x="168" y="20" width="40" height="30" rx="1.5" fill="#fbf6ec" stroke="#3f8f68" stroke-width="1.2" stroke-dasharray="3 2.4"/>
+              <path d="M180 42c-4-3-8-5.5-8-9.5a4 4 0 018-1.6 4 4 0 018 1.6c0 4-4 6.5-8 9.5z" stroke="#c23c34" stroke-width="1.1" fill="none"/>
+              <g stroke="#243029" stroke-width="1.1" opacity=".38">
+                <path d="M28 100h96M28 112h120M28 124h72"/>
+              </g>
+              <circle cx="112" cy="96" r="15" fill="#c23c34" opacity=".92"/>
+              <path d="M112 88v16M104 96h16" stroke="#fffdf8" stroke-width="1.4" stroke-linecap="round"/>
+            </g>
+          </svg>
+          <span class="open">Open</span>
+        </div>
+        <div class="say">
+          <svg width="30" height="30" viewBox="0 0 40 40" fill="none">
+            <circle cx="20" cy="20" r="3.2" stroke="#c23c34" stroke-width="1.3"/>
+            <circle cx="20" cy="20" r="7.4" stroke="#c23c34" stroke-width="1.2"/>
+            <circle cx="20" cy="20" r="11.6" stroke="#c23c34" stroke-width="1.1"/>
+            <circle cx="20" cy="20" r="15.8" stroke="#c23c34" stroke-width="1"/>
+          </svg>
+          <div>
+            <h2>Per Anna</h2>
+            <p>The airmail letter that started all of this. Flip it over, break the seal, and read the whole story &mdash; the mixer, the 1 AM message, the coffee at Kinship, the photo wall.</p>
+          </div>
+        </div>
+      </a>
+
+      <!-- 2 · the game -->
+      <a class="tile" href="./game/" style="--accent:#2f6aa8;--wash:#e9f0f7">
+        <div class="art">
+          <svg viewBox="0 0 300 290" fill="none" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+            <path d="M22 148l52-62 34 40 26-30 44 52 34-40 66 78z" fill="#fffdf8" stroke="#2f6aa8" stroke-width="1.5" stroke-linejoin="round"/>
+            <path d="M74 86l-9 14h18zM168 96l-8 12h16z" fill="#2f6aa8" opacity=".25"/>
+            <path d="M14 186h272" stroke="#2f6aa8" stroke-width="1.5"/>
+            <g stroke="#2f6aa8" stroke-width="1.2" opacity=".7">
+              <path d="M26 200c10-8 20-8 30 0s20 8 30 0 20-8 30 0 20 8 30 0 20-8 30 0 20 8 30 0 20-8 30 0"/>
+              <path d="M26 220c10-8 20-8 30 0s20 8 30 0 20-8 30 0 20 8 30 0 20-8 30 0 20 8 30 0 20-8 30 0"/>
+              <path d="M26 240c10-8 20-8 30 0s20 8 30 0 20-8 30 0 20 8 30 0 20-8 30 0 20 8 30 0 20-8 30 0"/>
+            </g>
+            <path d="M186 186v-16h44v16M196 170v-10M216 170v-10" stroke="#3f8f68" stroke-width="1.4" fill="none"/>
+            <g stroke="#c23c34" stroke-width="1.4" fill="none" stroke-linejoin="round">
+              <path d="M74 210h44l-8 12H82z"/>
+              <path d="M96 210v-24l20 12-20 6"/>
+            </g>
+            <g stroke="#3f8f68" stroke-width="1.3" fill="none">
+              <ellipse cx="150" cy="238" rx="16" ry="9"/>
+              <ellipse cx="168" cy="230" rx="8" ry="6"/>
+              <path d="M174 226c2-3 1-6-1-7.5M164 225c-1-3 0-5.5 2-6.5"/>
+              <path d="M136 244l-8 6M162 246l4 6"/>
+            </g>
+          </svg>
+          <span class="open">Open</span>
+        </div>
+        <div class="say">
+          <svg width="30" height="30" viewBox="0 0 40 40" fill="none">
+            <path d="M4 26h32" stroke="#2f6aa8" stroke-width="1.3"/>
+            <path d="M6 26c3-4 7-4 10 0s7 4 10 0 7-4 8-1" stroke="#2f6aa8" stroke-width="1.2"/>
+            <circle cx="29" cy="12" r="5" stroke="#2f6aa8" stroke-width="1.2"/>
+          </svg>
+          <div>
+            <h2>Lago di Anna</h2>
+            <p>A tiny Lake Como to wander around. Five little games are hidden across the map &mdash; the cat family tree, the turning bloom, the dog in the dark, the squirrels, the creek arcade &mdash; and a letter waits at the fruit stall when they're all done.</p>
+          </div>
+        </div>
+      </a>
+
+      <!-- 3 · the mixtape -->
+      <a class="tile wide" href="./cassette/" style="--accent:#3f8f68;--wash:#f2f8f2">
+        <div class="art">
+          <svg viewBox="0 0 300 210" fill="none" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+            <rect x="34" y="46" width="232" height="140" rx="8" fill="#fffdf8" stroke="#3f8f68" stroke-width="1.6"/>
+            <rect x="56" y="66" width="188" height="52" rx="3" fill="#f2f8f2" stroke="#3f8f68" stroke-width="1.2"/>
+            <path d="M74 82h84M74 94h56" stroke="#243029" stroke-width="1.1" opacity=".35"/>
+            <rect x="70" y="126" width="160" height="44" rx="4" fill="#fbf6ec" stroke="#3f8f68" stroke-width="1.2"/>
+            <circle cx="110" cy="148" r="17" fill="#fffdf8" stroke="#3f8f68" stroke-width="1.3"/>
+            <circle cx="190" cy="148" r="17" fill="#fffdf8" stroke="#3f8f68" stroke-width="1.3"/>
+            <g stroke="#3f8f68" stroke-width="1.1">
+              <path d="M110 138v20M100 148h20M103 141l14 14M117 141l-14 14"/>
+              <path d="M190 138v20M180 148h20M183 141l14 14M197 141l-14 14"/>
+            </g>
+            <circle cx="110" cy="148" r="5.4" fill="#3f8f68" opacity=".2"/>
+            <circle cx="190" cy="148" r="5.4" fill="#3f8f68" opacity=".2"/>
+            <path d="M127 148h46" stroke="#243029" stroke-width="2.4" opacity=".55"/>
+            <rect x="120" y="174" width="60" height="7" rx="2" fill="none" stroke="#3f8f68" stroke-width="1.1"/>
+            <g stroke="#c23c34" stroke-width="1.3" fill="none" opacity=".85">
+              <path d="M212 40V16l22-5v24"/>
+              <circle cx="207" cy="41" r="5.2"/>
+              <circle cx="229" cy="36" r="5.2"/>
+            </g>
+            <g stroke="#2f6aa8" stroke-width="1.2" fill="none" opacity=".7">
+              <path d="M66 36V20"/>
+              <circle cx="61" cy="37" r="4.6"/>
+            </g>
+          </svg>
+          <span class="open">Open</span>
+        </div>
+        <div class="say">
+          <svg width="30" height="30" viewBox="0 0 40 40" fill="none">
+            <rect x="6" y="12" width="28" height="18" rx="2.5" stroke="#3f8f68" stroke-width="1.3"/>
+            <circle cx="15" cy="21" r="3.4" stroke="#3f8f68" stroke-width="1.2"/>
+            <circle cx="25" cy="21" r="3.4" stroke="#3f8f68" stroke-width="1.2"/>
+            <path d="M18.4 21h3.2" stroke="#3f8f68" stroke-width="1.2"/>
+          </svg>
+          <div>
+            <h2>The Mixtape</h2>
+            <p>Ten songs for you, five to a side &mdash; Jalen Ngonda, Sade, Cleo Sol, Chet Baker, Dean Martin. Press play on the deck, and every J-card unfolds into the reason I picked that one.</p>
+          </div>
+        </div>
+      </a>
+
+      <!-- still building -->
+      <div class="soon">
+        <svg width="32" height="32" viewBox="0 0 40 40" fill="none" style="flex:none;animation:nestFloat 7s ease-in-out infinite">
+          <circle cx="20" cy="20" r="13" stroke="#3f8f68" stroke-width="1.3" stroke-dasharray="3 4"/>
+          <path d="M20 14v12M14 20h12" stroke="#3f8f68" stroke-width="1.3" stroke-linecap="round"/>
+        </svg>
+        <div>
+          <h2>The fourth one, soon</h2>
+          <p>Still building. It'll show up right here when it's ready.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <footer>
+      <div class="bars">
+        <span style="background:#c23c34"></span>
+        <span style="background:#2f6aa8"></span>
+        <span style="background:#3f8f68"></span>
+      </div>
+      <p class="vow">House rule number one: never come home drunk.</p>
+      <p class="sig">Made for Anna</p>
+    </footer>
+
   </div>
 </div>
 
-<!-- ==================== STORY ==================== -->
-<main id="story" aria-hidden="true">
-
-  <!-- prologue -->
-  <section data-screen-label="Prologue" style="min-height:88vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:110px 22px 90px;text-align:center;">
-    <div data-rv="" style="opacity:0;transform:translateY(24px);transition:opacity .9s ease, transform .9s cubic-bezier(.2,.7,.3,1);font-family:'Courier Prime',monospace;font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;color:#33548C;">for your birthday</div>
-    <h1 data-rv="" data-rv-d="180" style="opacity:0;transform:translateY(26px);transition:opacity .9s ease, transform .9s cubic-bezier(.2,.7,.3,1);font-family:'Newsreader',serif;font-weight:500;font-size:clamp(2.2rem,6.4vw,3.9rem);line-height:1.08;letter-spacing:-.015em;max-width:16ch;margin:18px 0 0;text-wrap:pretty;">A short letter <em style="font-style:italic;color:#33548C;">about one coffee.</em></h1>
-    <div data-rv="" data-rv-d="520" style="opacity:0;transform:translateY(22px) rotate(-2deg);transition:opacity .9s ease, transform .9s cubic-bezier(.2,.7,.3,1);font-family:'Caveat',cursive;font-weight:600;font-size:clamp(1.3rem,3.2vw,1.6rem);color:#B8452F;margin-top:34px;">так, я зробив тобі цілий сайт. не поспішай. ↓</div>
-  </section>
-
-  <!-- divider: cancellation mark -->
-  <div aria-hidden="true" style="display:flex;justify-content:center;padding:8px 0 4px;">
-    <svg viewBox="0 0 300 70" style="width:min(300px,70vw);height:auto;opacity:.4;">
-      <circle cx="45" cy="35" r="28" fill="none" stroke="#33548C" stroke-width="2"></circle>
-      <text x="45" y="32" text-anchor="middle" font-size="9" font-weight="700" fill="#33548C" font-family="Courier Prime, monospace">FIRST</text>
-      <text x="45" y="44" text-anchor="middle" font-size="9" fill="#33548C" font-family="Courier Prime, monospace">CLASS</text>
-      <path d="M84,20 Q114,12 144,20 T204,20 T264,20 M84,35 Q114,27 144,35 T204,35 T264,35 M84,50 Q114,42 144,50 T204,50 T264,50" fill="none" stroke="#33548C" stroke-width="1.8"></path>
-    </svg>
-  </div>
-
-  <!-- chapter 1 -->
-  <section data-screen-label="The Mixer" style="display:flex;flex-direction:column;align-items:center;padding:110px 22px;text-align:center;">
-    <div data-rv="" style="opacity:0;transform:translateY(24px);transition:opacity .9s ease, transform .9s cubic-bezier(.2,.7,.3,1);font-family:'Courier Prime',monospace;font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;color:#33548C;">The Mixer</div>
-    <h2 data-rv="" data-rv-d="150" style="opacity:0;transform:translateY(26px);transition:opacity .9s ease, transform .9s cubic-bezier(.2,.7,.3,1);font-family:'Newsreader',serif;font-weight:500;font-size:clamp(2rem,5.6vw,3.4rem);line-height:1.1;letter-spacing:-.015em;max-width:20ch;margin:16px 0 0;text-wrap:pretty;">A room full of people. <em style="font-style:italic;color:#33548C;">You were the only one I really saw.</em></h2>
-    <p data-rv="" data-rv-d="300" style="opacity:0;transform:translateY(24px);transition:opacity .9s ease, transform .9s cubic-bezier(.2,.7,.3,1);font-size:clamp(1.02rem,2.4vw,1.15rem);line-height:1.65;color:#6B5D4E;max-width:44ch;margin:20px 0 0;">At the Ukrainian student mixer. The room was super loud and crowded, but&nbsp;you stood out (literally) from the rest. I'm glad I mustered up some courage and got your socials right before I left for the night.</p>
-    <svg data-rv="" data-rv-d="420" role="img" aria-label="A crowd of anonymous dots. Two are highlighted, joined by a dashed line" viewBox="0 0 560 260" style="opacity:0;transform:translateY(28px);transition:opacity 1s ease, transform 1s cubic-bezier(.2,.7,.3,1);width:min(560px,92vw);height:auto;margin-top:44px;">
-      <g fill="#CFC4AE" style="animation:driftA 7s ease-in-out infinite alternate;">
-        <circle cx="55" cy="58" r="6"></circle><circle cx="200" cy="64" r="5"></circle><circle cx="372" cy="66" r="6"></circle><circle cx="515" cy="80" r="5"></circle>
-        <circle cx="175" cy="158" r="6"></circle><circle cx="330" cy="182" r="6"></circle><circle cx="500" cy="124" r="5"></circle><circle cx="150" cy="218" r="5"></circle>
-        <circle cx="395" cy="208" r="6"></circle>
-      </g>
-      <g fill="#BFB199" style="animation:driftB 9s ease-in-out infinite alternate;">
-        <circle cx="120" cy="36" r="7"></circle><circle cx="295" cy="42" r="7"></circle><circle cx="462" cy="46" r="7"></circle><circle cx="88" cy="138" r="7"></circle>
-        <circle cx="262" cy="128" r="5"></circle><circle cx="428" cy="148" r="7"></circle><circle cx="60" cy="198" r="6"></circle><circle cx="245" cy="208" r="7"></circle>
-        <circle cx="482" cy="203" r="7"></circle><circle cx="535" cy="170" r="5"></circle>
-      </g>
-      <circle cx="150" cy="105" r="16" fill="none" stroke="#33548C" stroke-width="1.4" opacity=".5"></circle>
-      <circle cx="150" cy="105" r="10" fill="#33548C"></circle>
-      <circle cx="392" cy="110" r="16" fill="none" stroke="#B8452F" stroke-width="1.4" opacity=".5"></circle>
-      <circle cx="392" cy="110" r="10" fill="#B8452F"></circle>
-      <path d="M166,101 C240,64 316,68 378,104" fill="none" stroke="#33548C" stroke-width="2" stroke-dasharray="6 8" stroke-linecap="round" style="animation:march 1.4s linear infinite;"></path>
-    </svg>
-    <div data-rv="" data-rv-d="1500" style="opacity:0;transform:translateY(20px) rotate(-2deg);transition:opacity .9s ease, transform .9s ease;font-family:'Caveat',cursive;font-weight:600;font-size:clamp(1.25rem,3vw,1.5rem);color:#B8452F;margin-top:30px;">although it went nowhere at the time.</div>
-  </section>
-
-  <!-- chapter 2 -->
-  <section data-screen-label="The Notification" style="display:flex;flex-direction:column;align-items:center;padding:100px 22px 120px;text-align:center;">
-    <div data-rv="" style="opacity:0;transform:translateY(24px);transition:opacity .9s ease, transform .9s cubic-bezier(.2,.7,.3,1);font-family:'Courier Prime',monospace;font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;color:#33548C;">The Notification</div>
-    <h2 data-rv="" data-rv-d="150" style="opacity:0;transform:translateY(26px);transition:opacity .9s ease, transform .9s cubic-bezier(.2,.7,.3,1);font-family:'Newsreader',serif;font-weight:500;font-size:clamp(2rem,5.6vw,3.4rem);line-height:1.1;letter-spacing:-.015em;max-width:15ch;margin:16px 0 0;text-wrap:pretty;">Months later, after I liked your story, <em style="font-style:italic;color:#33548C;">you remembered.</em></h2>
-    <div data-rv="" data-rv-d="500" data-rv-t="translateY(-46px) scale(.96)" data-rv-anim="buzz .5s ease 1.1s" role="img" aria-label="The real chat. June 12, 1:08 AM — Anna replies to an old message, would you like to grab coffee if you are free sometime this week, and asks in Ukrainian: is the coffee offer still valid? June 12, 8:14 AM — the answer: yes, still valid." style="opacity:0;transform:translateY(-46px) scale(.96);transition:opacity .7s ease, transform .8s cubic-bezier(.34,1.56,.64,1);margin-top:52px;width:min(420px,92vw);background:#101116;border:1px solid rgba(255,255,255,.07);border-radius:24px;box-shadow:0 26px 64px rgba(20,20,35,.4);padding:22px 18px 20px;display:flex;flex-direction:column;gap:10px;text-align:left;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;">
-      <div style="text-align:center;font-size:.66rem;letter-spacing:.1em;color:#7d7f87;font-weight:600;">JUN 12 AT 1:08 AM</div>
-      <div style="display:flex;flex-direction:column;align-items:flex-start;gap:4px;padding-left:44px;">
-        <div style="font-size:.74rem;color:#7d7f87;">Replied to you</div>
-        <div style="display:flex;gap:10px;align-items:stretch;">
-          <div aria-hidden="true" style="width:3px;border-radius:2px;background:#3a3c44;flex-shrink:0;"></div>
-          <div style="background:#5B2D9E;color:#E9DFF5;border-radius:18px;padding:9px 14px;font-size:.88rem;line-height:1.4;max-width:30ch;opacity:.85;">Would you like to grab coffee if you are free sometime this week?</div>
-        </div>
-      </div>
-      <div style="display:flex;align-items:flex-end;gap:9px;">
-        <img src="anna-avatar.png" alt="Anna" style="width:32px;height:32px;border-radius:50%;flex-shrink:0;object-fit:cover;">
-        <div style="background:#262930;color:#F2F2F5;border-radius:20px;padding:10px 15px;font-size:.95rem;line-height:1.4;">Пропозиція на каву ще дійсна?</div>
-      </div>
-      <div style="text-align:center;font-size:.66rem;letter-spacing:.1em;color:#7d7f87;font-weight:600;margin-top:8px;">JUN 12 AT 8:14 AM</div>
-      <div style="display:flex;justify-content:flex-end;">
-        <div style="background:#7A3BEF;color:#FFFFFF;border-radius:20px;padding:10px 15px;font-size:.95rem;line-height:1.4;">Так, ще дійсна</div>
-      </div>
-    </div>
-    <p data-rv="" data-rv-d="900" style="opacity:0;transform:translateY(24px);transition:opacity .9s ease, transform .9s cubic-bezier(.2,.7,.3,1);font-size:clamp(1.02rem,2.4vw,1.15rem);line-height:1.65;color:#6B5D4E;max-width:42ch;margin:34px 0 0;">I actually thought I was dreaming. I reread it a few times to make sure it was real. Honestly, I was scared it was a prank up until I saw you.</p>
-  </section>
-
-  <!-- divider: coffee ring + cut line -->
-  <div aria-hidden="true" style="display:flex;justify-content:center;align-items:center;gap:0;padding:0 0 8px;">
-    <svg viewBox="0 0 560 80" style="width:min(560px,92vw);height:auto;">
-      <line x1="0" y1="40" x2="560" y2="40" stroke="#6B5D4E" stroke-width="1.2" stroke-dasharray="7 7" opacity=".4"></line>
-      <circle cx="420" cy="40" r="26" fill="none" stroke="#8a6b44" stroke-width="5" opacity=".14"></circle>
-      <circle cx="420" cy="40" r="21" fill="none" stroke="#8a6b44" stroke-width="1.5" opacity=".18"></circle>
-    </svg>
-  </div>
-
-  <!-- chapter 3 -->
-  <section data-screen-label="June 15" style="display:flex;flex-direction:column;align-items:center;padding:100px 22px 90px;text-align:center;background:linear-gradient(180deg,#F7F2E9 0%,#EDF0F1 62%,#F7F2E9 100%);">
-    <div data-rv="" style="opacity:0;transform:translateY(24px);transition:opacity .9s ease, transform .9s cubic-bezier(.2,.7,.3,1);font-family:'Courier Prime',monospace;font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;color:#33548C;">June 15</div>
-    <h2 data-rv="" data-rv-d="150" style="opacity:0;transform:translateY(26px);transition:opacity .9s ease, transform .9s cubic-bezier(.2,.7,.3,1);font-family:'Newsreader',serif;font-weight:500;font-size:clamp(2rem,5.6vw,3.4rem);line-height:1.1;letter-spacing:-.015em;max-width:15ch;margin:16px 0 0;text-wrap:pretty;">One coffee at <s style="color:#6B5D4E;text-decoration-thickness:2px;">the book store</s> <em style="font-style:italic;color:#33548C;">Kinship.</em></h2>
-    <p data-rv="" data-rv-d="280" style="opacity:0;transform:translateY(24px);transition:opacity .9s ease, transform .9s cubic-bezier(.2,.7,.3,1);font-size:clamp(1.02rem,2.4vw,1.15rem);line-height:1.65;color:#6B5D4E;max-width:44ch;margin:20px 0 0;">The original plan was coffee at a bookstore nearby. Turns out they had closed their coffee shop a while ago and never bothered to tell Google Maps. I think it worked out better this way.</p>
-    <svg data-rv="" data-rv-d="350" role="img" aria-label="Two coffee cups side by side with steam rising" viewBox="0 0 360 190" style="opacity:0;transform:translateY(26px);transition:opacity 1s ease, transform 1s cubic-bezier(.2,.7,.3,1);width:min(340px,68vw);height:auto;margin-top:38px;">
-      <g stroke="#6B5D4E" stroke-width="2.2" fill="none" stroke-linecap="round">
-        <path style="animation:steamUp 3.2s ease-in-out infinite;" d="M120,62 C114,50 126,44 120,30"></path>
-        <path style="animation:steamUp 3.2s ease-in-out infinite;animation-delay:1.1s;" d="M141,58 C135,48 147,42 141,28"></path>
-        <path style="animation:steamUp 3.2s ease-in-out infinite;animation-delay:.5s;" d="M228,62 C222,50 234,44 228,30"></path>
-        <path style="animation:steamUp 3.2s ease-in-out infinite;animation-delay:1.6s;" d="M249,58 C243,48 255,42 249,28"></path>
-      </g>
-      <ellipse cx="136" cy="162" rx="54" ry="7" fill="#E4DAC6"></ellipse>
-      <ellipse cx="252" cy="162" rx="54" ry="7" fill="#E4DAC6"></ellipse>
-      <path d="M92,78 L103,146 Q105,156 117,156 L155,156 Q167,156 169,146 L180,78 Z" fill="#FFFDF7" stroke="#2B2118" stroke-width="2.4"></path>
-      <path d="M178,90 Q206,88 202,108 Q198,126 174,120" fill="none" stroke="#2B2118" stroke-width="2.4"></path>
-      <path d="M97,98 L175,98" stroke="#C89B4B" stroke-width="6" opacity=".75"></path>
-      <path d="M208,78 L219,146 Q221,156 233,156 L271,156 Q283,156 285,146 L296,78 Z" fill="#FFFDF7" stroke="#2B2118" stroke-width="2.4"></path>
-      <path d="M294,90 Q322,88 318,108 Q314,126 290,120" fill="none" stroke="#2B2118" stroke-width="2.4"></path>
-      <path d="M213,98 L291,98" stroke="#B8452F" stroke-width="6" opacity=".65"></path>
-    </svg>
-    <p data-rv="" data-rv-d="500" style="opacity:0;transform:translateY(24px);transition:opacity .9s ease, transform .9s cubic-bezier(.2,.7,.3,1);font-size:clamp(1.02rem,2.4vw,1.15rem);line-height:1.65;color:#6B5D4E;max-width:42ch;margin:26px 0 0;">So we walked to Pier 17 instead and sat by the water, looking at the bridge and Dumbo. The time spent listening to your voice as you spoke and looking at your hazel eyes in the sunlight constantly replays in my mind.</p>
-    <svg data-rv="" data-rv-d="650" role="img" aria-label="Illustration of the Brooklyn Bridge and Dumbo seen from Pier 17 in daylight. Two helicopters cross the sky, a small sailboat sits on the river, and two small figures sit at the water's edge with coffee." viewBox="0 0 900 430" style="opacity:0;transform:translateY(30px);transition:opacity 1.1s ease, transform 1.1s cubic-bezier(.2,.7,.3,1);width:min(880px,94vw);height:auto;margin-top:56px;border-radius:12px;box-shadow:0 24px 60px rgba(43,33,24,.14);">
-      <defs>
-        <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stop-color="#C9DDEC"></stop>
-          <stop offset="1" stop-color="#F2ECDD"></stop>
-        </linearGradient>
-        <linearGradient id="waterG" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stop-color="#A9C3D8"></stop>
-          <stop offset="1" stop-color="#7E97B8"></stop>
-        </linearGradient>
-        <radialGradient id="sunGlow">
-          <stop offset="0" stop-color="rgba(227,181,105,.6)"></stop>
-          <stop offset="1" stop-color="rgba(227,181,105,0)"></stop>
-        </radialGradient>
-      </defs>
-      <rect x="0" y="0" width="900" height="244" fill="url(#skyG)"></rect>
-      <rect x="0" y="244" width="900" height="186" fill="url(#waterG)"></rect>
-      <g id="pxSky">
-        <circle cx="700" cy="72" r="95" fill="url(#sunGlow)"></circle>
-        <circle cx="700" cy="72" r="27" fill="#E3B569"></circle>
-        <path d="M120,60 Q135,48 155,54 Q170,44 190,52 Q205,48 214,58 Q220,66 208,68 L128,68 Q114,66 120,60 Z" fill="#FBF7EC" opacity=".9"></path>
-        <path d="M400,36 Q412,27 428,32 Q440,24 456,31 Q468,28 474,37 Q478,44 468,45 L408,45 Q397,43 400,36 Z" fill="#FBF7EC" opacity=".75"></path>
-        <path d="M150,96 Q158,88 166,96 M166,96 Q174,88 182,96" fill="none" stroke="#4A3B2E" stroke-width="1.6" stroke-linecap="round" opacity=".7"></path>
-        <g opacity=".85" style="animation:driftA 6s ease-in-out infinite alternate;">
-          <ellipse cx="340" cy="70" rx="13" ry="6" fill="#4A3B2E"></ellipse>
-          <path d="M351,72 L364,76 L353,75 Z" fill="#4A3B2E"></path>
-          <path d="M340,61 L340,64 M322,70 L358,66" fill="none" stroke="#4A3B2E" stroke-width="1.6" stroke-linecap="round"></path>
-          <path d="M336,76 L333,80 L342,80 L340,76" fill="none" stroke="#4A3B2E" stroke-width="1.4" stroke-linecap="round"></path>
-        </g>
-        <g opacity=".7" style="animation:driftB 8s ease-in-out infinite alternate;">
-          <ellipse cx="618" cy="106" rx="9" ry="4.2" fill="#4A3B2E"></ellipse>
-          <path d="M626,107.5 L635,110 L627,109.5 Z" fill="#4A3B2E"></path>
-          <path d="M618,100 L618,102 M606,106 L630,103.5" fill="none" stroke="#4A3B2E" stroke-width="1.2" stroke-linecap="round"></path>
-        </g>
-        <path d="M490,66 Q497,59 504,66 M504,66 Q511,59 518,66" fill="none" stroke="#4A3B2E" stroke-width="1.4" stroke-linecap="round" opacity=".55"></path>
-      </g>
-      <g id="pxMid">
-        <path d="M600,244 L600,214 L640,214 L640,224 L672,224 L672,196 L688,196 L688,178 L700,178 L700,196 L716,196 L716,226 L756,226 L756,206 L800,206 L800,232 L845,232 L845,216 L900,216 L900,244 Z" fill="#9FB0C0" opacity=".8"></path>
-        <path d="M50,238 Q160,140 272,116" fill="none" stroke="#4A3B2E" stroke-width="2.5"></path>
-        <path d="M272,116 Q400,215 532,124" fill="none" stroke="#4A3B2E" stroke-width="2.5"></path>
-        <path d="M532,124 Q650,160 880,232" fill="none" stroke="#4A3B2E" stroke-width="2.5"></path>
-        <path d="M56,242 Q164,148 272,124 M272,124 Q400,221 532,132 M532,132 Q650,167 876,236" fill="none" stroke="#4A3B2E" stroke-width="1.1" opacity=".55"></path>
-        <g stroke="#4A3B2E" stroke-width="1" opacity=".5">
-          <line x1="90" y1="202" x2="90" y2="238"></line><line x1="130" y1="180" x2="130" y2="238"></line><line x1="170" y1="158" x2="170" y2="238"></line><line x1="210" y1="139" x2="210" y2="238"></line>
-          <line x1="310" y1="141" x2="310" y2="238"></line><line x1="350" y1="158" x2="350" y2="238"></line><line x1="400" y1="168" x2="400" y2="238"></line><line x1="450" y1="163" x2="450" y2="238"></line><line x1="490" y1="148" x2="490" y2="238"></line>
-          <line x1="600" y1="161" x2="600" y2="238"></line><line x1="660" y1="180" x2="660" y2="238"></line><line x1="720" y1="196" x2="720" y2="238"></line><line x1="780" y1="211" x2="780" y2="238"></line>
-        </g>
-        <g stroke="#4A3B2E" stroke-width=".8" opacity=".45">
-          <line x1="272" y1="120" x2="190" y2="240"></line><line x1="272" y1="120" x2="228" y2="240"></line><line x1="272" y1="120" x2="316" y2="240"></line><line x1="272" y1="120" x2="356" y2="240"></line>
-          <line x1="532" y1="128" x2="458" y2="240"></line><line x1="532" y1="128" x2="494" y2="240"></line><line x1="532" y1="128" x2="572" y2="240"></line><line x1="532" y1="128" x2="610" y2="240"></line>
-        </g>
-        <path d="M250,250 L250,118 Q250,107 261,107 L283,107 Q294,107 294,118 L294,250 Z" fill="#4A3B2E"></path>
-        <path d="M257,248 L257,152 Q262,135 267,152 L267,248 Z M277,248 L277,152 Q282,135 287,152 L287,248 Z" fill="#C9DDEC"></path>
-        <rect x="245" y="100" width="54" height="7" fill="#4A3B2E"></rect>
-        <path d="M514,250 L514,128 Q514,118 523,118 L541,118 Q550,118 550,128 L550,250 Z" fill="#4A3B2E"></path>
-        <path d="M520,248 L520,158 Q524,144 528,158 L528,248 Z M536,248 L536,158 Q540,144 544,158 L544,248 Z" fill="#C9DDEC"></path>
-        <rect x="510" y="112" width="44" height="6" fill="#4A3B2E"></rect>
-        <line x1="40" y1="236" x2="880" y2="236" stroke="#4A3B2E" stroke-width="1.4" opacity=".7"></line>
-        <path d="M40,244 L880,244" stroke="#4A3B2E" stroke-width="7"></path>
-      </g>
-      <g id="pxWater">
-        <g fill="none" stroke="#E7F0F6" stroke-width="1.6" opacity=".55" stroke-linecap="round">
-          <path d="M30,272 Q75,266 120,272 T210,272 T300,272 T390,272 T480,272 T570,272 T660,272 T750,272 T840,272"></path>
-          <path d="M70,296 Q115,290 160,296 T250,296 T340,296 T430,296 T520,296 T610,296 T700,296 T790,296"></path>
-          <path d="M40,324 Q85,318 130,324 T220,324 T310,324 T400,324 T490,324 T580,324 T670,324 T760,324 T850,324"></path>
-          <path d="M90,358 Q135,352 180,358 T270,358 T360,358 T450,358 T540,358 T630,358 T720,358 T810,358"></path>
-          <path d="M60,394 Q105,388 150,394 T240,394 T330,394 T420,394 T510,394 T600,394 T690,394 T780,394 T870,394"></path>
-        </g>
-        <g style="animation:driftA 9s ease-in-out infinite alternate;">
-          <path d="M120,296 L128,278 L131,296 Z" fill="#FBF7EC" stroke="#4A3B2E" stroke-width="1.2"></path>
-          <path d="M104,298 Q108,306 118,306 L142,306 Q152,306 154,298 Z" fill="#4A3B2E"></path>
-          <path d="M96,314 Q112,310 128,314 T160,314" fill="none" stroke="#E7F0F6" stroke-width="1.6" opacity=".6" stroke-linecap="round"></path>
-        </g>
-        <g stroke="#E3B569" stroke-linecap="round" fill="none">
-          <path d="M668,262 L736,262" stroke-width="3" stroke-dasharray="12 9" opacity=".7"></path>
-          <path d="M676,282 L728,282" stroke-width="2.6" stroke-dasharray="9 8" opacity=".6"></path>
-          <path d="M684,304 L720,304" stroke-width="2.2" stroke-dasharray="7 7" opacity=".5"></path>
-          <path d="M690,328 L714,328" stroke-width="2" stroke-dasharray="5 7" opacity=".4"></path>
-        </g>
-      </g>
-      <path d="M0,430 L0,338 L348,338 L348,430 Z" fill="#241B12"></path>
-      <line x1="0" y1="338" x2="348" y2="338" stroke="#4A3B2E" stroke-width="3"></line>
-      <g>
-        <circle cx="282" cy="312" r="8.5" fill="#2B2118"></circle>
-        <path d="M274,321 Q282,317 290,321 L292,344 L272,344 Z" fill="#33548C"></path>
-        <path d="M277,344 L275,374 M287,344 L289,377" stroke="#2B2118" stroke-width="5" stroke-linecap="round"></path>
-        <circle cx="324" cy="304" r="3.4" fill="#2B2118"></circle>
-        <circle cx="317" cy="311" r="8.5" fill="#2B2118"></circle>
-        <path d="M309,320 Q317,316 325,320 L327,344 L307,344 Z" fill="#B8452F"></path>
-        <path d="M312,344 L310,376 M322,344 L324,378" stroke="#2B2118" stroke-width="5" stroke-linecap="round"></path>
-        <path d="M258,328 L260,336 Q260,338 263,338 L267,338 Q270,338 270,336 L272,328 Z" fill="#F7F2E9"></path>
-        <path d="M265,324 C263,320 267,317 265,312" fill="none" stroke="#F7F2E9" stroke-width="1.3" stroke-linecap="round" opacity=".8"></path>
-        <path d="M334,328 L336,336 Q336,338 339,338 L343,338 Q346,338 346,336 L348,328 Z" fill="#F7F2E9"></path>
-        <path d="M341,324 C339,320 343,317 341,312" fill="none" stroke="#F7F2E9" stroke-width="1.3" stroke-linecap="round" opacity=".8"></path>
-      </g>
-    </svg>
-    <div data-rv="" data-rv-d="850" style="opacity:0;transform:translateY(20px) rotate(-2deg);transition:opacity .9s ease, transform .9s ease;font-family:'Caveat',cursive;font-weight:600;font-size:clamp(1.25rem,3vw,1.5rem);color:#B8452F;margin-top:34px;">and then you flew to Italy that same evening. of course you did.</div>
-  </section>
-
-  <!-- torn edge into night -->
-  <div aria-hidden="true" style="display:block;line-height:0;background:#F7F2E9;">
-    <svg viewBox="0 0 1200 60" preserveAspectRatio="none" style="width:100%;height:52px;display:block;">
-      <path fill="#141E38" d="M0,36 L54,28 L110,40 L170,24 L235,38 L300,20 L360,36 L430,26 L490,42 L560,22 L625,36 L690,24 L755,40 L820,28 L885,42 L950,24 L1015,38 L1080,26 L1140,40 L1200,30 L1200,60 L0,60 Z"></path>
-    </svg>
-  </div>
-
-  <!-- chapter 4 -->
-  <section data-screen-label="Chapter 4 The Globe" style="display:flex;flex-direction:column;align-items:center;padding:80px 22px 110px;text-align:center;background:linear-gradient(180deg,#141E38 0%,#1C2C52 55%,#121B33 100%);">
-    
-    <div data-rv="" style="opacity:0;transform:translateY(24px);transition:opacity .9s ease, transform .9s cubic-bezier(.2,.7,.3,1);font-family:'Courier Prime',monospace;font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;color:#C89B4B;">CURRENT STATUS</div><h2 data-rv="" data-rv-d="150" style="opacity:0;transform:translateY(26px);transition:opacity .9s ease, transform .9s cubic-bezier(.2,.7,.3,1);font-family:'Newsreader',serif;font-weight:500;font-size:clamp(2rem,5.6vw,3.4rem);line-height:1.1;letter-spacing:-.015em;color:#F7F2E9;margin:16px 0 0;text-wrap:pretty;">New York <em style="font-style:italic;color:#E8C387;">→</em> Lake Como</h2>
-    <div data-rv="" data-rv-d="300" style="opacity:0;transform:translateY(28px);transition:opacity 1.1s ease, transform 1.1s cubic-bezier(.2,.7,.3,1);margin-top:20px;">
-      <canvas id="globe" role="img" aria-label="A globe against the night sky showing an arc from New York to Lake Como with a small coffee cup traveling along it" style="display:block;width:min(560px,92vw);aspect-ratio:1;"></canvas>
-    </div>
-    <div data-rv="" data-rv-d="400" style="opacity:0;transform:translateY(24px);transition:opacity .9s ease, transform .9s cubic-bezier(.2,.7,.3,1);font-family:'Newsreader',serif;font-style:italic;font-size:clamp(2.6rem,8vw,4.4rem);line-height:1;margin-top:4px;color:#E8C387;"><span id="km">0</span> km</div>
-    <div data-rv="" data-rv-d="500" style="opacity:0;transform:translateY(20px);transition:opacity .9s ease, transform .9s ease;font-family:'Courier Prime',monospace;font-size:.66rem;letter-spacing:.32em;text-transform:uppercase;color:rgba(247,242,233,.55);margin-top:12px;">as the coffee flies</div>
-    <div data-rv="" data-rv-d="600" style="opacity:0;transform:translateY(22px);transition:opacity .9s ease, transform .9s ease;display:flex;gap:52px;margin-top:36px;">
-      <div>
-        <div style="font-family:'Courier Prime',monospace;font-size:.64rem;letter-spacing:.28em;text-transform:uppercase;color:rgba(247,242,233,.55);">New York</div>
-        <div id="ny" style="font-family:'Newsreader',serif;font-style:italic;font-size:1.7rem;color:#F7F2E9;margin-top:4px;">··:··</div>
-      </div>
-      <div>
-        <div style="font-family:'Courier Prime',monospace;font-size:.64rem;letter-spacing:.28em;text-transform:uppercase;color:rgba(247,242,233,.55);">Como</div>
-        <div id="co" style="font-family:'Newsreader',serif;font-style:italic;font-size:1.7rem;color:#F7F2E9;margin-top:4px;">··:··</div>
-      </div>
-    </div>
-    <p data-rv="" data-rv-d="700" style="opacity:0;transform:translateY(24px);transition:opacity .9s ease, transform .9s cubic-bezier(.2,.7,.3,1);font-size:clamp(1.02rem,2.4vw,1.15rem);line-height:1.65;color:rgba(247,242,233,.72);max-width:42ch;margin:34px 0 0;">Six thousand kilometers and six hours between us. You wake up before I do, but you still send me a message knowing I can't reply until later. These messages give me energy every morning!</p>
-    <div data-rv="" data-rv-d="850" style="opacity:0;transform:translateY(20px) rotate(-2deg);transition:opacity .9s ease, transform .9s ease;font-family:'Caveat',cursive;font-weight:600;font-size:clamp(1.3rem,3.2vw,1.6rem);color:#E8C387;margin-top:26px;">сумую за тобою.</div>
-  </section>
-
-  <!-- torn edge out of night -->
-  <div aria-hidden="true" style="display:block;line-height:0;background:#F7F2E9;">
-    <svg viewBox="0 0 1200 60" preserveAspectRatio="none" style="width:100%;height:52px;display:block;">
-      <path fill="#121B33" d="M0,0 L1200,0 L1200,26 L1146,34 L1088,22 L1030,36 L968,20 L905,34 L840,18 L778,32 L715,22 L650,38 L588,20 L525,34 L462,24 L398,38 L335,22 L272,36 L208,24 L146,38 L82,24 L30,34 L0,26 Z"></path>
-    </svg>
-  </div>
-
-  <!-- photo wall -->
-  <section data-screen-label="Wish You Were Here" style="display:flex;flex-direction:column;align-items:center;padding:96px 22px 90px;text-align:center;">
-    <div data-rv="" style="opacity:0;transform:translateY(24px);transition:opacity .9s ease, transform .9s cubic-bezier(.2,.7,.3,1);font-family:'Courier Prime',monospace;font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;color:#33548C;">Every place you weren't</div>
-    <h2 data-rv="" data-rv-d="150" style="opacity:0;transform:translateY(26px);transition:opacity .9s ease, transform .9s cubic-bezier(.2,.7,.3,1);font-family:'Newsreader',serif;font-weight:500;font-size:clamp(2rem,5.6vw,3.4rem);line-height:1.1;letter-spacing:-.015em;max-width:18ch;margin:16px 0 0;text-wrap:pretty;">So I <em style="font-style:italic;color:#33548C;">drew you in.</em></h2>
-    <p data-rv="" data-rv-d="300" style="opacity:0;transform:translateY(24px);transition:opacity .9s ease, transform .9s cubic-bezier(.2,.7,.3,1);font-size:clamp(1.02rem,2.4vw,1.15rem);line-height:1.65;color:#6B5D4E;max-width:42ch;margin:20px 0 0;">Every time I caught myself wishing you were there, I added you in.</p>
-
-    <div class="pw" style="width:min(920px,100%);margin-top:52px;text-align:left;">
-      <div data-rv="" data-rv-d="0" style="opacity:0;transform:translateY(30px);transition:opacity .9s ease, transform .9s cubic-bezier(.2,.7,.3,1);break-inside:avoid;margin:0 0 18px;">
-        <div style="position:relative;transform:rotate(-2.4deg);background:#FFFDF7;border:1px solid #E4DAC6;border-radius:3px;padding:10px 10px 16px;box-shadow:0 12px 28px rgba(43,33,24,.16);">
-          <div aria-hidden="true" style="position:absolute;left:50%;top:-9px;transform:translateX(-50%) rotate(-3deg);width:64px;height:20px;background:rgba(200,155,75,.32);border:1px solid rgba(200,155,75,.28);"></div>
-          <img src="photos/anna-01.png" alt="Dmytro on a grassy hilltop, with a hand-drawn stick figure of Anna beside him saying Hurry Up" style="display:block;width:100%;height:auto;border-radius:1px;">
-        </div>
-      </div>
-      <div data-rv="" data-rv-d="80" style="opacity:0;transform:translateY(30px);transition:opacity .9s ease, transform .9s cubic-bezier(.2,.7,.3,1);break-inside:avoid;margin:0 0 18px;">
-        <div style="position:relative;transform:rotate(1.8deg);background:#FFFDF7;border:1px solid #E4DAC6;border-radius:3px;padding:10px 10px 16px;box-shadow:0 12px 28px rgba(43,33,24,.16);">
-          <img src="photos/anna-02.png" alt="Dmytro in an empty St Mark's Square in Venice at night, with a hand-drawn stick figure of Anna beside him" style="display:block;width:100%;height:auto;border-radius:1px;">
-        </div>
-      </div>
-      <div data-rv="" data-rv-d="20" style="opacity:0;transform:translateY(30px);transition:opacity .9s ease, transform .9s cubic-bezier(.2,.7,.3,1);break-inside:avoid;margin:0 0 18px;">
-        <div style="position:relative;transform:rotate(-1.2deg);background:#FFFDF7;border:1px solid #E4DAC6;border-radius:3px;padding:10px 10px 16px;box-shadow:0 12px 28px rgba(43,33,24,.16);">
-          <div aria-hidden="true" style="position:absolute;left:50%;top:-9px;transform:translateX(-50%) rotate(4deg);width:58px;height:20px;background:rgba(51,84,140,.24);border:1px solid rgba(51,84,140,.22);"></div>
-          <img src="photos/anna-03.png" alt="Dmytro taking a selfie by a stone art installation, with a hand-drawn stick figure of Anna" style="display:block;width:100%;height:auto;border-radius:1px;">
-        </div>
-      </div>
-      <div data-rv="" data-rv-d="100" style="opacity:0;transform:translateY(30px);transition:opacity .9s ease, transform .9s cubic-bezier(.2,.7,.3,1);break-inside:avoid;margin:0 0 18px;">
-        <div style="position:relative;transform:rotate(2.4deg);background:#FFFDF7;border:1px solid #E4DAC6;border-radius:3px;padding:10px 10px 16px;box-shadow:0 12px 28px rgba(43,33,24,.16);">
-          <img src="photos/anna-04.png" alt="Dmytro at the Leaning Tower of Pisa, with a hand-drawn stick figure of Anna beside him" style="display:block;width:100%;height:auto;border-radius:1px;">
-        </div>
-      </div>
-      <div data-rv="" data-rv-d="40" style="opacity:0;transform:translateY(30px);transition:opacity .9s ease, transform .9s cubic-bezier(.2,.7,.3,1);break-inside:avoid;margin:0 0 18px;">
-        <div style="position:relative;transform:rotate(-2deg);background:#FFFDF7;border:1px solid #E4DAC6;border-radius:3px;padding:10px 10px 16px;box-shadow:0 12px 28px rgba(43,33,24,.16);">
-          <img src="photos/anna-05.png" alt="Dmytro holding a sphynx cat, with a smiling hand-drawn stick figure of Anna hugging him" style="display:block;width:100%;height:auto;border-radius:1px;">
-        </div>
-      </div>
-      <div data-rv="" data-rv-d="120" style="opacity:0;transform:translateY(30px);transition:opacity .9s ease, transform .9s cubic-bezier(.2,.7,.3,1);break-inside:avoid;margin:0 0 18px;">
-        <div style="position:relative;transform:rotate(1.4deg);background:#FFFDF7;border:1px solid #E4DAC6;border-radius:3px;padding:10px 10px 16px;box-shadow:0 12px 28px rgba(43,33,24,.16);">
-          <div aria-hidden="true" style="position:absolute;left:50%;top:-9px;transform:translateX(-50%) rotate(-5deg);width:62px;height:20px;background:rgba(184,69,47,.22);border:1px solid rgba(184,69,47,.2);"></div>
-          <img src="photos/anna-06.png" alt="Dmytro resting with a sphynx cat, with a hand-drawn stick figure of Anna and a little heart" style="display:block;width:100%;height:auto;border-radius:1px;">
-        </div>
-      </div>
-      <div data-rv="" data-rv-d="60" style="opacity:0;transform:translateY(30px);transition:opacity .9s ease, transform .9s cubic-bezier(.2,.7,.3,1);break-inside:avoid;margin:0 0 18px;">
-        <div style="position:relative;transform:rotate(-2.8deg);background:#FFFDF7;border:1px solid #E4DAC6;border-radius:3px;padding:10px 10px 16px;box-shadow:0 12px 28px rgba(43,33,24,.16);">
-          <img src="photos/anna-07.png" alt="Dmytro in a purple robe with two cats, with a hand-drawn stick figure of Anna leaning on him" style="display:block;width:100%;height:auto;border-radius:1px;">
-        </div>
-      </div>
-      <div data-rv="" data-rv-d="140" style="opacity:0;transform:translateY(30px);transition:opacity .9s ease, transform .9s cubic-bezier(.2,.7,.3,1);break-inside:avoid;margin:0 0 18px;">
-        <div style="position:relative;transform:rotate(2deg);background:#FFFDF7;border:1px solid #E4DAC6;border-radius:3px;padding:10px 10px 16px;box-shadow:0 12px 28px rgba(43,33,24,.16);">
-          <img src="photos/anna-08.png" alt="Dmytro in front of a waterfall throwing a peace sign, with a hand-drawn stick figure of Anna beside him" style="display:block;width:100%;height:auto;border-radius:1px;">
-        </div>
-      </div>
-      <div data-rv="" data-rv-d="80" style="opacity:0;transform:translateY(30px);transition:opacity .9s ease, transform .9s cubic-bezier(.2,.7,.3,1);break-inside:avoid;margin:0 0 18px;">
-        <div style="position:relative;transform:rotate(-1.6deg);background:#FFFDF7;border:1px solid #E4DAC6;border-radius:3px;padding:10px 10px 16px;box-shadow:0 12px 28px rgba(43,33,24,.16);">
-          <div aria-hidden="true" style="position:absolute;left:50%;top:-9px;transform:translateX(-50%) rotate(3deg);width:60px;height:20px;background:rgba(200,155,75,.32);border:1px solid rgba(200,155,75,.28);"></div>
-          <img src="photos/anna-09.png" alt="Dmytro swimming in a lake throwing a peace sign, with a hand-drawn stick figure of Anna in the water beside him" style="display:block;width:100%;height:auto;border-radius:1px;">
-        </div>
-      </div>
-      <div data-rv="" data-rv-d="160" style="opacity:0;transform:translateY(30px);transition:opacity .9s ease, transform .9s cubic-bezier(.2,.7,.3,1);break-inside:avoid;margin:0 0 18px;">
-        <div style="position:relative;transform:rotate(2.6deg);background:#FFFDF7;border:1px solid #E4DAC6;border-radius:3px;padding:10px 10px 16px;box-shadow:0 12px 28px rgba(43,33,24,.16);">
-          <img src="photos/anna-10.png" alt="Dmytro standing under a waterfall, with a hand-drawn stick figure of Anna sitting on his shoulders" style="display:block;width:100%;height:auto;border-radius:1px;">
-        </div>
-      </div>
-      <div data-rv="" data-rv-d="60" style="opacity:0;transform:translateY(30px);transition:opacity .9s ease, transform .9s cubic-bezier(.2,.7,.3,1);break-inside:avoid;margin:0 0 18px;">
-        <div style="position:relative;transform:rotate(1.6deg);background:#FFFDF7;border:1px solid #E4DAC6;border-radius:3px;padding:10px 10px 16px;box-shadow:0 12px 28px rgba(43,33,24,.16);">
-          <div aria-hidden="true" style="position:absolute;left:50%;top:-9px;transform:translateX(-50%) rotate(-4deg);width:60px;height:20px;background:rgba(51,84,140,.24);border:1px solid rgba(51,84,140,.22);"></div>
-          <img src="photos/anna-11.png" alt="Dmytro taking a selfie above a river gorge and waterfall, with a hand-drawn stick figure of Anna on his shoulder" style="display:block;width:100%;height:auto;border-radius:1px;">
-        </div>
-      </div>
-      <div data-rv="" data-rv-d="120" style="opacity:0;transform:translateY(30px);transition:opacity .9s ease, transform .9s cubic-bezier(.2,.7,.3,1);break-inside:avoid;margin:0 0 18px;">
-        <div style="position:relative;transform:rotate(-2.2deg);background:#FFFDF7;border:1px solid #E4DAC6;border-radius:3px;padding:10px 10px 16px;box-shadow:0 12px 28px rgba(43,33,24,.16);">
-          <img src="photos/anna-12.png" alt="Dmytro looking out at Niagara Falls, with a hand-drawn stick figure of Anna standing at the railing beside him" style="display:block;width:100%;height:auto;border-radius:1px;">
-        </div>
-      </div>
-      <div data-rv="" data-rv-d="40" style="opacity:0;transform:translateY(30px);transition:opacity .9s ease, transform .9s cubic-bezier(.2,.7,.3,1);break-inside:avoid;margin:0 0 18px;">
-        <div style="position:relative;transform:rotate(2.2deg);background:#FFFDF7;border:1px solid #E4DAC6;border-radius:3px;padding:10px 10px 16px;box-shadow:0 12px 28px rgba(43,33,24,.16);">
-          <img src="photos/anna-13.png" alt="Dmytro sitting on a bench at a canyon overlook, with a hand-drawn stick figure of Anna beside him" style="display:block;width:100%;height:auto;border-radius:1px;">
-        </div>
-      </div>
-      <div data-rv="" data-rv-d="140" style="opacity:0;transform:translateY(30px);transition:opacity .9s ease, transform .9s cubic-bezier(.2,.7,.3,1);break-inside:avoid;margin:0 0 18px;">
-        <div style="position:relative;transform:rotate(-1.4deg);background:#FFFDF7;border:1px solid #E4DAC6;border-radius:3px;padding:10px 10px 16px;box-shadow:0 12px 28px rgba(43,33,24,.16);">
-          <div aria-hidden="true" style="position:absolute;left:50%;top:-9px;transform:translateX(-50%) rotate(3deg);width:62px;height:20px;background:rgba(200,155,75,.32);border:1px solid rgba(200,155,75,.28);"></div>
-          <img src="photos/anna-14.png" alt="Dmytro on a deck looking out over farm fields at dusk, with a hand-drawn stick figure of Anna at the railing beside him" style="display:block;width:100%;height:auto;border-radius:1px;">
-        </div>
-      </div>
-      <div data-rv="" data-rv-d="80" style="opacity:0;transform:translateY(30px);transition:opacity .9s ease, transform .9s cubic-bezier(.2,.7,.3,1);break-inside:avoid;margin:0 0 18px;">
-        <div style="position:relative;transform:rotate(2.8deg);background:#FFFDF7;border:1px solid #E4DAC6;border-radius:3px;padding:10px 10px 16px;box-shadow:0 12px 28px rgba(43,33,24,.16);">
-          <img src="photos/anna-15.png" alt="An older man on a porch glider, with a hand-drawn stick figure of Anna as a grandmother in the chair beside him" style="display:block;width:100%;height:auto;border-radius:1px;">
-        </div>
-      </div>
-      <div data-rv="" data-rv-d="160" style="opacity:0;transform:translateY(30px);transition:opacity .9s ease, transform .9s cubic-bezier(.2,.7,.3,1);break-inside:avoid;margin:0 0 18px;">
-        <div style="position:relative;transform:rotate(-2.6deg);background:#FFFDF7;border:1px solid #E4DAC6;border-radius:3px;padding:10px 10px 16px;box-shadow:0 12px 28px rgba(43,33,24,.16);">
-          <div aria-hidden="true" style="position:absolute;left:50%;top:-9px;transform:translateX(-50%) rotate(-3deg);width:58px;height:20px;background:rgba(184,69,47,.22);border:1px solid rgba(184,69,47,.2);"></div>
-          <img src="photos/anna-16.png" alt="Dmytro on a mountain summit throwing a peace sign, with a hand-drawn stick figure of Anna beside him" style="display:block;width:100%;height:auto;border-radius:1px;">
-        </div>
-      </div>
-    </div>
-
-    <div data-rv="" data-rv-d="200" style="opacity:0;transform:translateY(20px) rotate(-2deg);transition:opacity .9s ease, transform .9s ease;font-family:'Caveat',cursive;font-weight:600;font-size:clamp(1.3rem,3.2vw,1.6rem);color:#B8452F;margin-top:40px;">wish you were here. every single day. even in some memories from the past.</div>
-  </section>
-
-  <!-- chapter 5 -->
-  <section data-screen-label="Unwritten" style="display:flex;flex-direction:column;align-items:center;padding:110px 22px 60px;text-align:center;">
-    <div id="bday" style="text-align:center;">
-      <div data-rv="" data-rv-d="450" style="opacity:0;transform:translateY(24px);transition:opacity .9s ease, transform .9s cubic-bezier(.2,.7,.3,1);font-family:'Newsreader',serif;font-style:italic;font-size:clamp(2.4rem,7vw,4rem);margin-top:56px;line-height:1.12;">З днем народження, Аннa</div>
-      <p data-rv="" data-rv-d="150" style="opacity:0;transform:translateY(24px);transition:opacity .9s ease, transform .9s cubic-bezier(.2,.7,.3,1);font-size:clamp(1.02rem,2.4vw,1.15rem);line-height:1.7;color:#6B5D4E;max-width:46ch;margin:28px auto 0;">Твій день народження для мене особливий, тому що якби ти не народилася, я б ніколи тебе не зустрів. І хоча ми знайомі не так уже й довго, мені щиро хочеться, щоб я зустрів тебе набагато раніше.</p>
-      <p data-rv="" data-rv-d="150" style="opacity:0;transform:translateY(24px);transition:opacity .9s ease, transform .9s cubic-bezier(.2,.7,.3,1);font-size:clamp(1.02rem,2.4vw,1.15rem);line-height:1.7;color:#6B5D4E;max-width:46ch;margin:18px auto 0;">За цей час ти вже встигла принести в моє життя стільки тепла, радості та хвилювання. Я безмежно вдячний за фотографії та відео, з якими я прокидаюся вранці, за нескінченний спам рілсами і за кожну нашу розмову, через яку я дізнаюся про тебе трохи більше.</p>
-      <p data-rv="" data-rv-d="150" style="opacity:0;transform:translateY(24px);transition:opacity .9s ease, transform .9s cubic-bezier(.2,.7,.3,1);font-size:clamp(1.02rem,2.4vw,1.15rem);line-height:1.7;color:#6B5D4E;max-width:46ch;margin:18px auto 0;">Мені подобається слухати, як ти розповідаєш про речі, які любиш. Про платипусів і великих равликів, собак, оленів і маленьких білочок, які сидять у своїх гніздах серед пуху. Про ранункулюси, пляж, малювання, танці, лічі, мангостан і навіть Cinnamon Toast Crunch. Кожна така маленька деталь поступово складається в образ неймовірно яскравої, розумної, допитливої, харизматичної, турботливої та теплої дівчини, яка непомітно зайняла дуже важливе місце в моїх думках і в серці.</p>
-      <p data-rv="" data-rv-d="150" style="opacity:0;transform:translateY(24px);transition:opacity .9s ease, transform .9s cubic-bezier(.2,.7,.3,1);font-size:clamp(1.02rem,2.4vw,1.15rem);line-height:1.7;color:#6B5D4E;max-width:46ch;margin:18px auto 0;">Я знаю, що буваю дуже прямолінійним (straightforward), тому не хочу тиснути на тебе гучними словами чи обіцянками. Я просто хочу, щоб ти знала, що мої почуття до тебе справжні. Я щиро сподіваюся, що наші стосунки продовжать розвиватися і ставатимуть глибшими з часом.</p>
-      <p data-rv="" data-rv-d="150" style="opacity:0;transform:translateY(24px);transition:opacity .9s ease, transform .9s cubic-bezier(.2,.7,.3,1);font-size:clamp(1.02rem,2.4vw,1.15rem);line-height:1.7;color:#6B5D4E;max-width:46ch;margin:18px auto 0;">Дякую тобі за те, що ти з’явилася в моєму житті. Ти робиш мої дні світлішими і змушуєш мене відчувати те, що я вже давно не думав, що зможу відчути навіть на відстані понад шість тисяч кілометрів</p>
-      <p data-rv="" data-rv-d="150" style="opacity:0;transform:translateY(24px);transition:opacity .9s ease, transform .9s cubic-bezier(.2,.7,.3,1);font-size:clamp(1.02rem,2.4vw,1.15rem);line-height:1.7;color:#6B5D4E;max-width:46ch;margin:18px auto 0;">А поки що насолоджуйся своїм днем, своєю подорожжю і кожною миттю цього нового року життя.</p>
-      <p data-rv="" data-rv-d="150" style="opacity:0;transform:translateY(24px);transition:opacity .9s ease, transform .9s cubic-bezier(.2,.7,.3,1);font-size:clamp(1.02rem,2.4vw,1.15rem);line-height:1.7;color:#6B5D4E;max-width:46ch;margin:18px auto 0;">І, звичайно, коли ти повернешся, на нас чекає грузинський ресторан.</p>
-      <div data-rv="" data-rv-d="250" style="opacity:0;transform:translateY(22px);transition:opacity .9s ease, transform .9s cubic-bezier(.2,.7,.3,1);font-family:'Newsreader',serif;font-style:italic;font-size:clamp(1.5rem,4vw,2rem);color:#2B2118;margin-top:34px;line-height:1.2;">З днем народження, Аннa</div>
-      <div data-rv="" data-rv-d="360" style="opacity:0;transform:translateY(20px);transition:opacity .9s ease, transform .9s ease;font-family:'Caveat',cursive;font-weight:600;font-size:clamp(1.35rem,3.4vw,1.7rem);color:#33548C;margin-top:12px;">З думками про тебе</div>
-      <div data-rv="" data-rv-d="470" style="opacity:0;transform:translateY(20px);transition:opacity .9s ease, transform .9s ease;font-family:'Caveat',cursive;font-weight:600;font-size:1.8rem;color:#2B2118;margin-top:4px;">Дмитро</div>
-      <div data-rv="" data-rv-d="1350" style="opacity:0;transform:translateY(26px) rotate(-2.5deg);transition:opacity 1s ease, transform 1s cubic-bezier(.2,.7,.3,1);display:inline-block;width:min(280px,72vw);box-sizing:content-box;margin-top:40px;background:#FFFDF7;border:1px solid #E4DAC6;border-radius:4px;padding:12px 12px 18px;box-shadow:0 16px 38px rgba(43,33,24,.18);">
-        <img src="perry.jpg" alt="Anna's platypus plushie wearing headphones on a desk" style="display:block;width:100%;border-radius:2px;">
-        <div style="font-family:'Caveat',cursive;font-weight:600;font-size:1.25rem;color:#2B2118;margin-top:12px;line-height:1.35;">Agent P, on duty.<br>він теж запрошений.</div>
-      </div>
-      <svg role="img" aria-label="A quiet line drawing of Lake Como, mountains above still water" viewBox="0 0 520 150" style="width:min(500px,86vw);height:auto;margin:48px auto 0;display:block;">
-        <path d="M10,80 L95,32 L160,68 L235,20 L318,62 L400,28 L510,74" fill="none" stroke="#8FA6C9" stroke-width="1.8" stroke-linejoin="round"></path>
-        <path d="M60,80 L95,46 L128,80 M280,74 L318,44 L352,74" fill="none" stroke="#8FA6C9" stroke-width="1" opacity=".6"></path>
-        <path d="M30,98 Q80,92 130,98 T230,98 T330,98 T430,98 T510,96" fill="none" stroke="#8FA6C9" stroke-width="1.5"></path>
-        <path d="M60,114 Q110,108 160,114 T260,114 T360,114 T450,114" fill="none" stroke="#8FA6C9" stroke-width="1.3" opacity=".7"></path>
-        <path d="M100,130 Q150,124 200,130 T300,130 T400,130" fill="none" stroke="#8FA6C9" stroke-width="1.1" opacity=".5"></path>
-        <path d="M395,102 L403,102 L407,96 M395,102 Q399,107 403,102" fill="none" stroke="#8FA6C9" stroke-width="1.3"></path>
-      </svg>
-      <div style="font-family:'Courier Prime',monospace;font-size:.6rem;letter-spacing:.32em;text-transform:uppercase;color:#8FA6C9;margin-top:14px;">Lago di Como</div>
-    </div>
-  </section>
-
-  <!-- countdown -->
-  <section data-screen-label="Countdown" style="display:flex;flex-direction:column;align-items:center;padding:20px 22px 96px;text-align:center;">
-    <div data-rv="" style="opacity:0;transform:translateY(24px);transition:opacity .9s ease, transform .9s cubic-bezier(.2,.7,.3,1);font-family:'Courier Prime',monospace;font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;color:#33548C;">Arriving</div>
-    <h2 data-rv="" data-rv-d="150" style="opacity:0;transform:translateY(26px);transition:opacity .9s ease, transform .9s cubic-bezier(.2,.7,.3,1);font-family:'Newsreader',serif;font-weight:500;font-size:clamp(1.9rem,5.2vw,3rem);line-height:1.12;letter-spacing:-.015em;max-width:20ch;margin:16px 0 0;text-wrap:pretty;">Until you're back on <em style="font-style:italic;color:#33548C;">this</em> side of the ocean.</h2>
-    <div data-rv="" data-rv-d="300" id="cd" role="timer" aria-label="Countdown to August 20 at 7 PM" style="opacity:0;transform:translateY(28px);transition:opacity 1s ease, transform 1s cubic-bezier(.2,.7,.3,1);display:flex;gap:clamp(10px,2.4vw,20px);margin-top:40px;">
-      <div style="display:flex;flex-direction:column;align-items:center;gap:9px;">
-        <div style="min-width:clamp(64px,15vw,96px);padding:16px 6px;background:#141E38;border-radius:10px;box-shadow:0 14px 30px rgba(20,30,56,.28), inset 0 1px 0 rgba(255,255,255,.06);font-family:'Courier Prime',monospace;font-weight:700;font-size:clamp(1.9rem,6vw,3.2rem);color:#E8C387;line-height:1;font-variant-numeric:tabular-nums;"><span id="dd">––</span></div>
-        <div style="font-family:'Courier Prime',monospace;font-size:.6rem;letter-spacing:.26em;text-transform:uppercase;color:#6B5D4E;">days</div>
-      </div>
-      <div style="display:flex;flex-direction:column;align-items:center;gap:9px;">
-        <div style="min-width:clamp(64px,15vw,96px);padding:16px 6px;background:#141E38;border-radius:10px;box-shadow:0 14px 30px rgba(20,30,56,.28), inset 0 1px 0 rgba(255,255,255,.06);font-family:'Courier Prime',monospace;font-weight:700;font-size:clamp(1.9rem,6vw,3.2rem);color:#E8C387;line-height:1;font-variant-numeric:tabular-nums;"><span id="hh">––</span></div>
-        <div style="font-family:'Courier Prime',monospace;font-size:.6rem;letter-spacing:.26em;text-transform:uppercase;color:#6B5D4E;">hours</div>
-      </div>
-      <div style="display:flex;flex-direction:column;align-items:center;gap:9px;">
-        <div style="min-width:clamp(64px,15vw,96px);padding:16px 6px;background:#141E38;border-radius:10px;box-shadow:0 14px 30px rgba(20,30,56,.28), inset 0 1px 0 rgba(255,255,255,.06);font-family:'Courier Prime',monospace;font-weight:700;font-size:clamp(1.9rem,6vw,3.2rem);color:#E8C387;line-height:1;font-variant-numeric:tabular-nums;"><span id="mm">––</span></div>
-        <div style="font-family:'Courier Prime',monospace;font-size:.6rem;letter-spacing:.26em;text-transform:uppercase;color:#6B5D4E;">min</div>
-      </div>
-      <div style="display:flex;flex-direction:column;align-items:center;gap:9px;">
-        <div style="min-width:clamp(64px,15vw,96px);padding:16px 6px;background:#B8452F;border-radius:10px;box-shadow:0 14px 30px rgba(184,69,47,.26), inset 0 1px 0 rgba(255,255,255,.08);font-family:'Courier Prime',monospace;font-weight:700;font-size:clamp(1.9rem,6vw,3.2rem);color:#FBEFDF;line-height:1;font-variant-numeric:tabular-nums;"><span id="ss">––</span></div>
-        <div style="font-family:'Courier Prime',monospace;font-size:.6rem;letter-spacing:.26em;text-transform:uppercase;color:#6B5D4E;">sec</div>
-      </div>
-    </div>
-    <div data-rv="" data-rv-d="450" id="cdWhen" style="opacity:0;transform:translateY(20px);transition:opacity .9s ease, transform .9s ease;font-family:'Courier Prime',monospace;font-size:.66rem;letter-spacing:.24em;text-transform:uppercase;color:#33548C;margin-top:26px;">August 20 · 7:00 PM</div>
-  </section>
-
-  <!-- one more thing: the game -->
-  <section data-screen-label="One More Thing" style="display:flex;flex-direction:column;align-items:center;padding:40px 22px 96px;text-align:center;">
-    <div data-rv="" style="opacity:0;transform:translateY(24px);transition:opacity .9s ease, transform .9s cubic-bezier(.2,.7,.3,1);font-family:'Courier Prime',monospace;font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;color:#33548C;">P.S. — one more thing</div>
-    <h2 data-rv="" data-rv-d="150" style="opacity:0;transform:translateY(26px);transition:opacity .9s ease, transform .9s cubic-bezier(.2,.7,.3,1);font-family:'Newsreader',serif;font-weight:500;font-size:clamp(2rem,5.6vw,3.4rem);line-height:1.1;letter-spacing:-.015em;max-width:16ch;margin:16px 0 0;text-wrap:pretty;">I also built you <em style="font-style:italic;color:#33548C;">a little game.</em></h2>
-    <p data-rv="" data-rv-d="300" style="opacity:0;transform:translateY(24px);transition:opacity .9s ease, transform .9s cubic-bezier(.2,.7,.3,1);font-size:clamp(1.02rem,2.4vw,1.15rem);line-height:1.65;color:#6B5D4E;max-width:40ch;margin:20px 0 0;">Because a birthday needs at least one thing you can actually press. Consider it a second little gift — it'll explain itself once you're in.</p>
-
-    <!-- pressable ticket -> links to the game (edit href to your GitHub Pages path) -->
-    <a class="ticket" data-rv="" data-rv-d="450" href="./game/" target="_blank" rel="noopener" aria-label="Open the game Dmytro built for you, in a new tab" style="opacity:0;transform:translateY(28px);transition:opacity 1s ease, transform 1s cubic-bezier(.2,.7,.3,1), box-shadow .35s ease;text-decoration:none;display:inline-flex;align-items:stretch;margin-top:46px;background:#FFFDF7;border:1px solid #E4DAC6;border-radius:10px;box-shadow:0 16px 38px rgba(43,33,24,.16);overflow:hidden;max-width:min(440px,92vw);">
-      <!-- perforated stub -->
-      <div aria-hidden="true" style="position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:22px 18px;background:#141E38;">
-        <svg viewBox="0 0 40 44" style="width:38px;height:auto;">
-          <path d="M6,16 L8,36 Q8.5,40 12.5,40 L27.5,40 Q31.5,40 32,36 L34,16 Z" fill="#E8C387" stroke="#F2E7D0" stroke-width="1.4"></path>
-          <path d="M34,19 Q40,19 38.5,26 Q37.5,30 32.5,29" fill="none" stroke="#F2E7D0" stroke-width="1.4"></path>
-          <path d="M6,15 L34,15" stroke="#F2E7D0" stroke-width="1.6" stroke-linecap="round"></path>
-          <g fill="none" stroke="#E8C387" stroke-width="1.4" stroke-linecap="round" style="animation:steamUp 3.2s ease-in-out infinite;">
-            <path d="M15,11 C13,7 17,5 15,1"></path>
-          </g>
-          <g fill="none" stroke="#E8C387" stroke-width="1.4" stroke-linecap="round" style="animation:steamUp 3.2s ease-in-out infinite;animation-delay:1.1s;">
-            <path d="M24,11 C22,7 26,5 24,1"></path>
-          </g>
-        </svg>
-        <div style="font-family:'Courier Prime',monospace;font-size:.54rem;letter-spacing:.28em;text-transform:uppercase;color:rgba(247,242,233,.6);writing-mode:horizontal-tb;">1 play</div>
-      </div>
-      <div aria-hidden="true" style="width:1px;border-left:2px dashed #E4DAC6;"></div>
-      <!-- ticket body -->
-      <div style="display:flex;flex-direction:column;align-items:flex-start;gap:4px;padding:20px 26px 20px 22px;">
-        <div style="font-family:'Courier Prime',monospace;font-size:.58rem;letter-spacing:.26em;text-transform:uppercase;color:#33548C;">admit one · Anna</div>
-        <div style="display:flex;align-items:center;gap:10px;">
-          <span style="font-family:'Newsreader',serif;font-style:italic;font-size:clamp(1.5rem,4.6vw,2rem);color:#2B2118;line-height:1;">Press to play</span>
-          <span aria-hidden="true" style="font-family:'Newsreader',serif;font-size:1.5rem;color:#B8452F;">→</span>
-        </div>
-        <div style="font-family:'Caveat',cursive;font-weight:600;font-size:1.15rem;color:#6B5D4E;transform:rotate(-1.5deg);margin-top:2px;">opens in a new page ✦ go on</div>
-      </div>
-    </a>
-
-    <div data-rv="" data-rv-d="620" style="opacity:0;transform:translateY(20px) rotate(-2deg);transition:opacity .9s ease, transform .9s ease;font-family:'Caveat',cursive;font-weight:600;font-size:clamp(1.3rem,3.2vw,1.6rem);color:#B8452F;margin-top:34px;">happy birthday, Anna. now go play. ↗</div>
-  </section>
-
-  <footer style="padding:40px 20px 48px;text-align:center;">
-    <div aria-hidden="true" style="width:120px;height:8px;margin:0 auto 26px;background:repeating-linear-gradient(135deg,#B8452F 0 10px,#F7F2E9 10px 17px,#33548C 17px 27px,#F7F2E9 27px 34px);opacity:.7;"></div>
-    <div style="font-family:'Courier Prime',monospace;font-size:.66rem;letter-spacing:.24em;text-transform:uppercase;color:#6B5D4E;line-height:2;">Written in New York · Sent to Como<br>6,440 km, and closing</div>
-  </footer>
-</main>
-
-<canvas id="conf" aria-hidden="true" style="position:fixed;inset:0;z-index:90;pointer-events:none;width:100vw;height:100vh;"></canvas>
-<div aria-hidden="true" style="position:fixed;inset:0;z-index:250;pointer-events:none;opacity:.05;mix-blend-mode:multiply;background-image:url(&quot;data:image/svg+xml;utf8,&lt;svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'&gt;&lt;filter id='n'&gt;&lt;feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/&gt;&lt;feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.7 0'/&gt;&lt;/filter&gt;&lt;rect width='240' height='240' filter='url(%23n)'/&gt;&lt;/svg&gt;&quot;);"></div>
-<script>
-class PerAnna {
-  constructor() {
-    this.els = {};
-    for (const n of ['stage','hint','envelope','letter','flap','seal','flip',
-                     'story','globe','km','ny','co','conf','bday','cd','dd',
-                     'hh','mm','ss','cdWhen','pxSky','pxMid','pxWater'])
-      this.els[n] = document.getElementById(n);
-    this.props = { skipEnvelope: false, confetti: true };
-    this.els.envelope.addEventListener('click', () => this.envClick());
-    this.els.envelope.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.envClick(); }
-    });
-    this.reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    this.opened = false; this.redeemed = false; this.counted = false;
-    this._timers = []; this._raf = null; this.globeOn = false;
-
-    if (this.props.skipEnvelope) { this.finishOpen(true); }
-    else { document.body.style.overflow = 'hidden'; }
-
-    // clocks
-    const tick = () => {
-      const f = (tz) => new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: tz }).format(new Date());
-      if (this.els.ny) this.els.ny.textContent = f('America/New_York');
-      if (this.els.co) this.els.co.textContent = f('Europe/Rome');
-    };
-    tick();
-    this._clockInt = setInterval(tick, 15000);
-
-    this.setupGlobe();
-    this.setupCounter();
-    this.setupParallax();
-    this.setupFinale();
-    this.setupCountdown();
-
-    document.querySelectorAll('img').forEach(im => {
-      const hide = () => {
-        const wrap = (im.closest('.pw') || (im.getAttribute('src') || '').includes('perry'))
-          ? im.closest('div[data-rv]') : null;
-        (wrap || im).style.display = 'none';
-      };
-      if (im.complete && im.naturalWidth === 0) hide();
-      else im.addEventListener('error', hide);
-    });
-  }
-
-  t(fn, ms) { this._timers.push(setTimeout(fn, ms)); }
-
-  /* ---------- envelope ---------- */
-  envClick() {
-    if (this.opened) return;
-    if (!this.flipped) {
-      this.flipped = true;
-      const E = this.els;
-      E.flip.style.transform = 'rotateY(180deg)';
-      E.hint.style.opacity = '0';
-      if (E.envelope) E.envelope.setAttribute('aria-label', 'The back of the envelope, closed with a red wax seal. Press to break the seal and open it.');
-      this.t(() => { E.hint.textContent = 'break the seal'; E.hint.style.opacity = '1'; }, 520);
-      return;
-    }
-    this.openEnvelope();
-  }
-
-  openEnvelope() {
-    if (this.opened) return;
-    this.opened = true;
-    const E = this.els;
-    if (this.reduced) { this.finishOpen(true); return; }
-    E.seal.style.transform = 'translate(-50%,-50%) scale(1.14)';
-    E.hint.style.opacity = '0';
-    this.t(() => {
-      E.seal.style.transform = 'translate(-50%,-50%) scale(.3) rotate(26deg)';
-      E.seal.style.opacity = '0';
-      E.flap.style.transform = 'rotateX(178deg)';
-    }, 160);
-    this.t(() => {
-      E.flap.style.zIndex = '0';
-      E.letter.style.transform = 'translateY(-58%)';
-    }, 760);
-    this.t(() => {
-      E.envelope.style.transform = 'translateY(30px)';
-      E.stage.style.opacity = '0';
-    }, 1650);
-    this.t(() => this.finishOpen(false), 2450);
-  }
-
-  finishOpen(instant) {
-    this.opened = true;
-    const E = this.els;
-    if (E.stage) {
-      E.stage.style.opacity = '0';
-      E.stage.style.visibility = 'hidden';
-      E.stage.style.pointerEvents = 'none';
-      E.stage.setAttribute('aria-hidden', 'true');
-    }
-    document.body.style.overflow = '';
-    if (E.story) E.story.setAttribute('aria-hidden', 'false');
-    window.scrollTo(0, 0);
-    this.initReveals();
-  }
-
-  /* ---------- scroll reveals ---------- */
-  initReveals() {
-    if (this._revealsInit) return;
-    this._revealsInit = true;
-    const els = Array.from(document.querySelectorAll('[data-rv]'));
-    const show = (el) => {
-      el.style.transitionDelay = (el.dataset.rvD || 0) + 'ms';
-      el.style.opacity = '1';
-      el.style.transform = 'none';
-      if (el.dataset.rvAnim && !this.reduced) {
-        const cur = el.style.animation;
-        el.style.animation = (cur ? cur + ', ' : '') + el.dataset.rvAnim;
-      }
-    };
-    if (this.reduced) { els.forEach(el => { el.style.transition = 'none'; show(el); }); return; }
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(en => { if (en.isIntersecting) { show(en.target); io.unobserve(en.target); } });
-    }, { threshold: 0.2 });
-    els.forEach(el => io.observe(el));
-    this._ios = (this._ios || []).concat([io]);
-  }
-
-  /* ---------- globe ---------- */
-  setupGlobe() {
-    const c = this.els.globe;
-    if (!c) return;
-    const ctx = c.getContext('2d');
-    const D2R = Math.PI / 180;
-    const toVec = (lat, lon) => {
-      const la = lat * D2R, lo = lon * D2R;
-      return [Math.cos(la) * Math.cos(lo), Math.sin(la), -Math.cos(la) * Math.sin(lo)];
-    };
-    const rotY = (v, a) => { const co = Math.cos(a), s = Math.sin(a); return [co * v[0] + s * v[2], v[1], -s * v[0] + co * v[2]]; };
-    const rotX = (v, a) => { const co = Math.cos(a), s = Math.sin(a); return [v[0], co * v[1] - s * v[2], s * v[1] + co * v[2]]; };
-    const slerp = (a, b, t) => {
-      let dot = a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
-      dot = Math.min(1, Math.max(-1, dot));
-      const th = Math.acos(dot), st = Math.sin(th);
-      if (st < 1e-6) return a;
-      const w1 = Math.sin((1 - t) * th) / st, w2 = Math.sin(t * th) / st;
-      return [a[0] * w1 + b[0] * w2, a[1] * w1 + b[1] * w2, a[2] * w1 + b[2] * w2];
-    };
-
-    /* very simplified continent outlines, [lon,lat,...] */
-    const POLYS = [
-      [-168,66,-160,58,-146,60,-132,55,-124,48,-120,34,-107,24,-97,16,-90,13,-83,9,-78,7,-81,10,-86,13,-95,18,-97,26,-91,29,-84,30,-81,25,-80,28,-76,35,-70,42,-65,44,-60,46,-64,49,-58,50,-55,52,-60,56,-64,60,-77,62,-85,66,-82,70,-95,72,-110,74,-125,71,-140,70,-156,71],
-      [-45,60,-53,65,-56,70,-68,76,-58,82,-38,83,-22,80,-20,75,-24,70,-33,68],
-      [-77,7,-79,1,-81,-5,-77,-13,-70,-18,-71,-30,-73,-40,-74,-50,-69,-55,-64,-55,-62,-45,-58,-39,-53,-34,-48,-27,-40,-22,-38,-15,-35,-8,-38,-4,-44,-2,-50,0,-52,4,-58,7,-64,10,-72,12],
-      [-6,35,3,37,11,37,20,32,30,31,33,28,38,20,43,11,48,11,51,10,44,4,41,-2,40,-11,35,-20,33,-26,27,-34,20,-35,17,-30,14,-22,12,-14,13,-5,9,4,3,6,-5,5,-8,4,-14,8,-17,15,-17,21,-13,27,-9,31],
-      [-9,43,-9,37,-6,36,-2,37,1,41,3,42,6,43,9,44,11,42,13,41,15,40,16,38,17,39,18,40,16,41,14,42,13,45,15,44,19,42,20,40,22,38,23,36,24,38,26,40,29,41,31,37,36,36,36,33,34,31,34,29,37,24,39,17,43,12,45,12,50,14,55,17,59,22,58,25,51,25,48,28,50,30,54,27,57,26,62,25,66,25,70,21,72,19,73,15,76,9,78,8,80,13,82,17,86,20,89,22,92,21,94,17,96,12,98,8,100,5,103,1.5,101,5,100,10,102,13,105,9,107,10,109,13,108,17,106,20,110,20,114,22,118,25,121,29,122,32,120,35,122,37,121,39,125,39,126,35,129,36,130,42,132,43,138,47,135,49,138,54,142,54,141,59,151,60,157,52,162,57,159,61,165,62,170,60,176,64,175,67,170,68,176,70,170,71,150,71,130,72,112,76,95,77,85,74,75,72,66,70,58,70,48,68,44,66,40,67,33,69,28,71,22,70,15,68,5,62,7,58,12,56,14,55,18,60,20,63,24,66,26,61,30,60,24,57,21,56,14,54,7,53,2,51,-2,49,-1,46,-2,44],
-      [-5,50,1,51,2,53,-1,55,-3,58,-6,57,-5,54,-3,53,-5,51],
-      [-10,52,-6,52,-6,55,-10,54],
-      [130,31,134,34,137,35,140,36,141,40,140,43,145,44,143,42,140,38,136,34,132,32],
-      [95,5,99,3,102,-1,106,-6,103,-6,98,0,95,3],
-      [109,1,113,5,117,7,119,3,117,-2,113,-4,109,-1],
-      [105,-6,110,-7,114,-8,110,-8.5,105,-7],
-      [131,-1,136,-2,141,-3,146,-6,150,-10,146,-8,141,-8,136,-5,132,-3],
-      [120,14,122,18,121,19,119,16],
-      [114,-22,113,-26,115,-34,119,-35,124,-33,132,-32,136,-35,139,-37,144,-38,147,-38,150,-37,153,-32,153,-26,151,-24,148,-20,146,-17,143,-13,142,-10,136,-12,132,-11,129,-14,124,-16,120,-19],
-      [172,-34,176,-38,174,-42,169,-47,166,-46,170,-42,173,-38],
-      [44,-12,49,-15,50,-20,47,-25,44,-24,43,-18],
-      [-22,64,-16,63,-14,65,-18,66,-22,65]
-    ];
-    const pip = (lon, lat, p) => {
-      let inside = false;
-      const n = p.length / 2;
-      for (let i = 0, j = n - 1; i < n; j = i++) {
-        const xi = p[i * 2], yi = p[i * 2 + 1], xj = p[j * 2], yj = p[j * 2 + 1];
-        if (((yi > lat) !== (yj > lat)) && (lon < (xj - xi) * (lat - yi) / (yj - yi) + xi)) inside = !inside;
-      }
-      return inside;
-    };
-    const land = [];
-    for (let lat = -58; lat <= 82; lat += 3.6) {
-      const step = 3.6 / Math.max(0.25, Math.cos(lat * D2R));
-      for (let lon = -180; lon < 180; lon += step) {
-        for (let k = 0; k < POLYS.length; k++) {
-          if (pip(lon, lat, POLYS[k])) { land.push(toVec(lat, lon)); break; }
-        }
-      }
-    }
-
-    const NYC = toVec(40.7128, -74.006), COMO = toVec(45.808, 9.0852);
-    const baseLon = -57.5 * D2R, tilt = 8 * D2R;
-    const stars = [];
-    for (let i = 0; i < 130; i++) {
-      stars.push({ x: Math.random() * 640, y: Math.random() * 640, r: .5 + Math.random() * 1.2, p: Math.random() * 6.28, s: .5 + Math.random() * 1.2 });
-    }
-
-    const size = () => {
-      const dpr = Math.min(2, window.devicePixelRatio || 1);
-      const w = Math.round(c.clientWidth * dpr);
-      if (w > 0 && c.width !== w) { c.width = w; c.height = w; }
-    };
-    this._onResize = () => { size(); if (this.reduced) draw(9000); };
-    window.addEventListener('resize', this._onResize);
-
-    const CX = 320, CY = 320, R = 228;
-    const proj = (v, off) => {
-      const p = rotX(rotY(v, baseLon + off), tilt);
-      return { x: CX + p[0] * R, y: CY - p[1] * R, z: p[2] };
-    };
-    const drawCup = (x, y, k) => {
-      ctx.save();
-      ctx.translate(x, y);
-      ctx.scale(k, k);
-      ctx.beginPath();
-      ctx.moveTo(-5, -2); ctx.lineTo(-3.8, 5);
-      ctx.quadraticCurveTo(-3.6, 6.6, -2, 6.6); ctx.lineTo(2, 6.6);
-      ctx.quadraticCurveTo(3.6, 6.6, 3.8, 5); ctx.lineTo(5, -2);
-      ctx.closePath();
-      ctx.fillStyle = '#141E38'; ctx.fill();
-      ctx.strokeStyle = '#F2E7D0'; ctx.lineWidth = 1.5; ctx.stroke();
-      ctx.beginPath();
-      ctx.moveTo(5, -.5);
-      ctx.quadraticCurveTo(8.8, -.5, 7.8, 3);
-      ctx.quadraticCurveTo(7, 5.6, 4.2, 4.6);
-      ctx.stroke();
-      ctx.beginPath(); ctx.moveTo(-6.5, 8.4); ctx.lineTo(6.5, 8.4); ctx.stroke();
-      ctx.strokeStyle = 'rgba(242,231,208,.75)'; ctx.lineWidth = 1.2;
-      ctx.beginPath();
-      ctx.moveTo(-1.6, -4.5); ctx.bezierCurveTo(-2.6, -6.5, -.6, -8, -1.6, -10);
-      ctx.moveTo(1.6, -4.5); ctx.bezierCurveTo(.6, -6.5, 2.6, -8, 1.6, -10);
-      ctx.stroke();
-      ctx.restore();
-    };
-    const draw = (t) => {
-      size();
-      const sc = c.width / 640;
-      ctx.setTransform(sc, 0, 0, sc, 0, 0);
-      ctx.clearRect(0, 0, 640, 640);
-      const off = this.reduced ? 0 : Math.sin(t * 0.00016) * 8 * D2R;
-      /* stars */
-      stars.forEach(st => {
-        const a = .2 + .4 * (.5 + .5 * Math.sin(t * .001 * st.s + st.p));
-        ctx.beginPath(); ctx.arc(st.x, st.y, st.r, 0, 6.29);
-        ctx.fillStyle = 'rgba(230,236,250,' + a.toFixed(3) + ')'; ctx.fill();
-      });
-      /* atmosphere */
-      let g = ctx.createRadialGradient(CX, CY, R * .9, CX, CY, R * 1.35);
-      g.addColorStop(0, 'rgba(110,150,230,.32)');
-      g.addColorStop(.45, 'rgba(110,150,230,.08)');
-      g.addColorStop(1, 'rgba(110,150,230,0)');
-      ctx.beginPath(); ctx.arc(CX, CY, R * 1.35, 0, 6.29); ctx.fillStyle = g; ctx.fill();
-      /* sphere */
-      g = ctx.createRadialGradient(CX - 75, CY - 95, 40, CX, CY, R);
-      g.addColorStop(0, '#2F4372');
-      g.addColorStop(.55, '#1D2C50');
-      g.addColorStop(1, '#101A33');
-      ctx.beginPath(); ctx.arc(CX, CY, R, 0, 6.29); ctx.fillStyle = g; ctx.fill();
-      ctx.strokeStyle = 'rgba(160,185,230,.45)'; ctx.lineWidth = 1.4; ctx.stroke();
-      /* land dots */
-      for (let i = 0; i < land.length; i++) {
-        const p = proj(land[i], off);
-        if (p.z < 0.02) continue;
-        const a = .16 + .58 * p.z;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, 1.1 + p.z * 1.7, 0, 6.29);
-        ctx.fillStyle = 'rgba(235,224,200,' + a.toFixed(3) + ')';
-        ctx.fill();
-      }
-      /* arc */
-      const arcPt = (tt) => {
-        const v = slerp(NYC, COMO, tt);
-        const lift = 1 + Math.sin(tt * Math.PI) * .17;
-        const p = rotX(rotY([v[0] * lift, v[1] * lift, v[2] * lift], baseLon + off), tilt);
-        return { x: CX + p[0] * R, y: CY - p[1] * R, z: p[2] };
-      };
-      ctx.beginPath();
-      let started = false;
-      for (let i = 0; i <= 64; i++) {
-        const p = arcPt(i / 64);
-        if (p.z > -.05) { if (!started) { ctx.moveTo(p.x, p.y); started = true; } else ctx.lineTo(p.x, p.y); }
-      }
-      ctx.save();
-      ctx.strokeStyle = 'rgba(232,195,135,.28)'; ctx.lineWidth = 1; ctx.stroke();
-      ctx.strokeStyle = '#E8C387'; ctx.lineWidth = 2.2; ctx.lineCap = 'round';
-      ctx.setLineDash([.5, 9]);
-      ctx.lineDashOffset = this.reduced ? 0 : -(t * .018) % 9.5;
-      ctx.shadowColor = 'rgba(232,195,135,.8)'; ctx.shadowBlur = 6;
-      ctx.stroke();
-      ctx.restore();
-      /* traveling cup */
-      const prog = this.reduced ? .5 : (t * .00008) % 1;
-      const cp = arcPt(prog);
-      if (cp.z > -.05) drawCup(cp.x, cp.y - 6, 1.5 + cp.z * .3);
-      /* endpoints */
-      [{ v: NYC, label: 'NEW YORK', align: 'right', po: 0 }, { v: COMO, label: 'COMO', align: 'left', po: .5 }].forEach(o => {
-        const p = proj(o.v, off);
-        if (p.z < 0) return;
-        if (!this.reduced) {
-          const pr = (t * .0014 + o.po) % 1;
-          ctx.beginPath(); ctx.arc(p.x, p.y, 5 + pr * 13, 0, 6.29);
-          ctx.strokeStyle = 'rgba(232,195,135,' + ((1 - pr) * .7).toFixed(3) + ')';
-          ctx.lineWidth = 1.4; ctx.stroke();
-        }
-        ctx.beginPath(); ctx.arc(p.x, p.y, 4, 0, 6.29); ctx.fillStyle = '#F7F2E9'; ctx.fill();
-        ctx.beginPath(); ctx.arc(p.x, p.y, 6.5, 0, 6.29); ctx.strokeStyle = '#E8C387'; ctx.lineWidth = 1.2; ctx.stroke();
-        ctx.font = '700 12px "Courier Prime", monospace';
-        ctx.fillStyle = 'rgba(247,242,233,.92)';
-        ctx.textBaseline = 'middle';
-        if (o.align === 'right') { ctx.textAlign = 'right'; ctx.fillText(o.label, p.x - 14, p.y - 11); }
-        else { ctx.textAlign = 'left'; ctx.fillText(o.label, p.x + 14, p.y - 11); }
-      });
-    };
-    this._drawGlobe = draw;
-
-    const loop = (t) => {
-      if (!this.globeOn) { this._raf = null; return; }
-      draw(t);
-      this._raf = requestAnimationFrame(loop);
-    };
-    const io = new IntersectionObserver((es) => {
-      es.forEach(e => {
-        if (e.isIntersecting) {
-          if (this.reduced) { size(); draw(9000); return; }
-          if (!this.globeOn) { this.globeOn = true; this._raf = requestAnimationFrame(loop); }
-        } else {
-          this.globeOn = false;
-        }
-      });
-    }, { threshold: 0.05 });
-    io.observe(c);
-    this._ios = (this._ios || []).concat([io]);
-  }
-
-  /* ---------- distance counter ---------- */
-  setupCounter() {
-    const el = this.els.km;
-    if (!el) return;
-    const io = new IntersectionObserver((es) => {
-      es.forEach(e => {
-        if (!e.isIntersecting || this.counted) return;
-        this.counted = true;
-        if (this.reduced) { el.textContent = '6,440'; return; }
-        let start = null;
-        const DUR = 2200, TARGET = 6440;
-        const step = (ts) => {
-          if (!start) start = ts;
-          const p = Math.min(1, (ts - start) / DUR);
-          const eased = 1 - Math.pow(1 - p, 3);
-          el.textContent = Math.round(TARGET * eased).toLocaleString('en-US');
-          if (p < 1) requestAnimationFrame(step);
-        };
-        requestAnimationFrame(step);
-      });
-    }, { threshold: 0.6 });
-    io.observe(el);
-    this._ios = (this._ios || []).concat([io]);
-  }
-
-  /* ---------- pier parallax ---------- */
-  setupParallax() {
-    if (this.reduced) return;
-    let raf = null;
-    const apply = () => {
-      raf = null;
-      const sky = this.els.pxSky, mid = this.els.pxMid, wat = this.els.pxWater;
-      if (!sky) return;
-      const svg = sky.ownerSVGElement;
-      if (!svg) return;
-      const r = svg.getBoundingClientRect();
-      const vh = window.innerHeight;
-      if (r.bottom < 0 || r.top > vh) return;
-      const p = Math.max(-1, Math.min(1, (r.top + r.height / 2 - vh / 2) / vh));
-      sky.style.transform = 'translateY(' + (p * 16).toFixed(1) + 'px)';
-      mid.style.transform = 'translateY(' + (p * 8).toFixed(1) + 'px)';
-      wat.style.transform = 'translateY(' + (p * -9).toFixed(1) + 'px)';
-    };
-    this._onScroll = () => { if (!raf) raf = requestAnimationFrame(apply); };
-    window.addEventListener('scroll', this._onScroll, { passive: true });
-  }
-
-  /* ---------- finale confetti ---------- */
-  setupFinale() {
-    const el = this.els.bday;
-    if (!el) return;
-    const io = new IntersectionObserver((es) => {
-      es.forEach(e => {
-        if (!e.isIntersecting || this._finaleDone) return;
-        this._finaleDone = true;
-        const wantConfetti = (this.props.confetti !== undefined ? this.props.confetti : true);
-        if (!this.reduced && wantConfetti) {
-          this.burst();
-          this.t(() => this.burst(), 450);
-        }
-      });
-    }, { threshold: 0.3 });
-    io.observe(el);
-    this._ios = (this._ios || []).concat([io]);
-  }
-
-  /* ---------- countdown to Aug 20, 7:00 PM ---------- */
-  setupCountdown() {
-    const E = this.els;
-    if (!E.dd) return;
-    const target = new Date('2026-08-20T19:00:00-04:00').getTime();
-    const pad = (n) => String(n).padStart(2, '0');
-    const tick = () => {
-      let diff = target - Date.now();
-      if (diff <= 0) {
-        E.dd.textContent = '00'; E.hh.textContent = '00'; E.mm.textContent = '00'; E.ss.textContent = '00';
-        if (E.cdWhen) E.cdWhen.textContent = "You're back.";
-        if (E.cdNote) E.cdNote.textContent = 'the seat by the water is yours.';
-        clearInterval(this._cdInt);
-        return;
-      }
-      const s = Math.floor(diff / 1000);
-      E.dd.textContent = pad(Math.floor(s / 86400));
-      E.hh.textContent = pad(Math.floor((s % 86400) / 3600));
-      E.mm.textContent = pad(Math.floor((s % 3600) / 60));
-      E.ss.textContent = pad(s % 60);
-    };
-    tick();
-    this._cdInt = setInterval(tick, 1000);
-  }
-
-
-  burst() {
-    const c = this.els.conf;
-    if (!c) return;
-    if (c.width !== window.innerWidth) { c.width = window.innerWidth; c.height = window.innerHeight; }
-    const ctx = c.getContext('2d');
-    this._parts = this._parts || [];
-    const COLORS = ['#33548C', '#B8452F', '#C89B4B', '#8FA6C9', '#F7F2E9'];
-    for (let i = 0; i < 150; i++) {
-      this._parts.push({
-        x: window.innerWidth / 2 + (Math.random() - .5) * 140,
-        y: window.innerHeight * .6,
-        vx: (Math.random() - .5) * 11,
-        vy: -Math.random() * 13 - 5,
-        w: 5 + Math.random() * 6,
-        h: 8 + Math.random() * 8,
-        rot: Math.random() * Math.PI,
-        vr: (Math.random() - .5) * .3,
-        c: COLORS[(Math.random() * COLORS.length) | 0],
-        life: 1
-      });
-    }
-    if (!this._confRunning) {
-      this._confRunning = true;
-      const loop = () => {
-        ctx.clearRect(0, 0, c.width, c.height);
-        this._parts = this._parts.filter(p => p.life > 0);
-        this._parts.forEach(p => {
-          p.vy += .28; p.x += p.vx; p.y += p.vy; p.rot += p.vr; p.life -= .006;
-          ctx.save();
-          ctx.translate(p.x, p.y); ctx.rotate(p.rot);
-          ctx.globalAlpha = Math.max(0, p.life);
-          ctx.fillStyle = p.c;
-          ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
-          ctx.restore();
-        });
-        if (this._parts.length) requestAnimationFrame(loop);
-        else this._confRunning = false;
-      };
-      requestAnimationFrame(loop);
-    }
-  }
-}
-new PerAnna();
-</script>
 </body>
 </html>
