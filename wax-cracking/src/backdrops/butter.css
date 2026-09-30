@@ -1,0 +1,61 @@
+/* ─── butter stage ─────────────────────────────────────────────────────────── */
+.play-area[data-toy=butter] .toy-scene[data-scene=butter]{display:block}
+
+/* Sunny breakfast-nook light: warm glow, buttery pool. */
+.play-area[data-toy=butter]{--glow:#fff3c6;--glow-tint:#f2d68a;background:#fbf2df}
+/* Striped butter wallpaper, sunlight pouring in from the window at top-left. */
+.play-area[data-toy=butter] .stage-wall{background:
+  radial-gradient(40% 55% at 10% 22%,#fff6d4 0%,#fff3ce99 45%,transparent 75%),
+  radial-gradient(120% 60% at 50% -10%,#fdf1d2 0%,transparent 70%),
+  linear-gradient(#faefd4 0%,#fbf3e1 46%,#fbf5e8 100%)}
+.play-area[data-toy=butter] .stage-wall:before{inset:0 0 44%;opacity:1;background:
+  radial-gradient(circle at 30px 12px,#ecd293 1.3px,transparent 1.7px) 0 0/40px 24px,
+  repeating-linear-gradient(90deg,#f4dfa35c 0 18px,transparent 18px 40px);
+  -webkit-mask-image:linear-gradient(#000 10%,transparent),radial-gradient(34% 70% at 50% 75%,transparent 30%,#000 100%);
+  -webkit-mask-composite:source-in;mask-image:linear-gradient(#000 10%,transparent),radial-gradient(34% 70% at 50% 75%,transparent 30%,#000 100%);mask-composite:intersect}
+/* Soft blue gingham tablecloth. */
+.play-area[data-toy=butter] .stage-floor{background:
+  repeating-linear-gradient(90deg,#b7cfdd66 0 29px,transparent 29px 58px) 50% 100%,
+  repeating-linear-gradient(0deg,#b7cfdd66 0 29px,transparent 29px 58px) 50% 100%,
+  #fcf8ef}
+/* Warm pixel sparkles; bubbles become sunlit dust motes. */
+.play-area[data-toy=butter] .stage-spark{color:#ecc766}
+.play-area[data-toy=butter] .stage-spark-one{left:23%;top:15%}
+.play-area[data-toy=butter] .stage-spark-two{color:#f0b89f}
+.play-area[data-toy=butter] .stage-bubble{color:#f1d487}
+.play-area[data-toy=butter] .stage-bubble-two{color:#f3c7a6}
+
+/* Scenery */
+.play-area[data-toy=butter] .toy-scene svg{display:block;height:auto;overflow:visible}
+.play-area[data-toy=butter] .butter-window{left:3.5%;top:13%;width:clamp(78px,16.5%,150px)}
+.play-area[data-toy=butter] .butter-shelf{right:3%;top:17%;width:clamp(74px,15.5%,140px)}
+.play-area[data-toy=butter] .butter-toast{left:3%;bottom:84px;width:clamp(82px,18%,160px)}
+.play-area[data-toy=butter] .butter-mug{right:3.5%;bottom:84px;width:clamp(66px,14%,124px)}
+
+@media(max-width:700px){.play-area[data-toy=butter] .butter-toast,.play-area[data-toy=butter] .butter-mug{bottom:110px}}
+
+/* A slanted morning sunbeam from the window across the table (brightens on squeeze). */
+.play-area[data-toy=butter] .butter-sunbeam{left:6%;top:19%;width:52%;height:66%;
+  clip-path:polygon(0 0,26% 0,100% 100%,52% 100%);
+  -webkit-mask-image:linear-gradient(to bottom,#000 10%,#0000);mask-image:linear-gradient(to bottom,#000 10%,#0000);
+  opacity:calc(.5 + var(--squeeze) * .35);transition:opacity .3s ease}
+.play-area[data-toy=butter] .butter-sunbeam i{position:absolute;inset:0;background:linear-gradient(115deg,#fff7d6 0%,#fff3c4cc 45%,#fff3c400);
+  animation:butter-shimmer 9s ease-in-out infinite}
+
+/* Ambient motion */
+.play-area[data-toy=butter] .butter-curtain{transform-box:fill-box;transform-origin:50% 0;animation:butter-sway 7s ease-in-out infinite alternate}
+.play-area[data-toy=butter] .butter-curtain-r{animation-delay:-3.5s}
+.play-area[data-toy=butter] .butter-sun{transform-box:fill-box;transform-origin:50% 50%;animation:butter-sun 6s ease-in-out infinite}
+.play-area[data-toy=butter] .butter-steam{opacity:0;animation:butter-steam 4.2s ease-in-out infinite}
+.play-area[data-toy=butter] .butter-steam-2{animation-delay:-1.4s}
+.play-area[data-toy=butter] .butter-steam-3{animation-delay:-2.8s}
+.play-area[data-toy=butter] .butter-daisy{transform-box:fill-box;transform-origin:50% 100%;
+  rotate:calc(var(--squeeze) * -16deg);transition:rotate .35s cubic-bezier(.34,1.56,.64,1);animation:butter-daisy 5s ease-in-out infinite}
+/* The toast blushes while you squeeze. */
+.play-area[data-toy=butter] .butter-blush{opacity:calc(.35 + var(--squeeze) * .65)}
+
+@keyframes butter-sway{0%{transform:skewX(-2deg)}100%{transform:skewX(2deg)}}
+@keyframes butter-sun{0%,100%{transform:scale(.94);opacity:.85}50%{transform:scale(1.04);opacity:1}}
+@keyframes butter-steam{0%{transform:translate(0,4px);opacity:0}30%{opacity:.9}100%{transform:translate(1px,-5px);opacity:0}}
+@keyframes butter-daisy{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
+@keyframes butter-shimmer{0%,100%{opacity:.75}50%{opacity:1}}

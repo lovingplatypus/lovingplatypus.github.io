@@ -1,0 +1,69 @@
+/* ─── chocolate stage ─────────────────────────────────────────────────────────── */
+.play-area[data-toy=chocolate] .toy-scene[data-scene=chocolate]{display:block}
+
+/* Candy-stripe wallpaper, kept pale and lit in the middle so the dark bar pops. */
+.play-area[data-toy=chocolate] .stage-wall{background:
+  radial-gradient(58% 60% at 52% 44%,#fffaf5 0%,#fffaf5cc 40%,#fffaf500 76%),
+  linear-gradient(#f6dfe2b3,#fdf4ee00 55%),
+  repeating-linear-gradient(90deg,#f9e5e5 0 18px,#fdf3ec 18px 36px)}
+.play-area[data-toy=chocolate] .stage-wall:before{background:radial-gradient(circle at 27px 13px,#eec3cb 1.5px,transparent 1.9px) 0 0/36px 26px;opacity:.8}
+/* Cream marble counter. */
+.play-area[data-toy=chocolate] .stage-floor{background:
+  linear-gradient(112deg,#0000 44%,#e8d2cc88 45.5%,#0000 47.5%) 0 0/310px 230px,
+  linear-gradient(64deg,#0000 57%,#edd9d499 58.5%,#0000 60%) 60px 20px/270px 350px,
+  linear-gradient(150deg,#0000 30%,#f1e2dc 31%,#0000 33%) 0 0/190px 170px,
+  #fbf4ef}
+.play-area[data-toy=chocolate] .stage-spark{color:#e5b56c}
+.play-area[data-toy=chocolate] .stage-spark-two{color:#f2a9ba}
+.play-area[data-toy=chocolate] .stage-bubble{color:#f3b9c6}
+.play-area[data-toy=chocolate] .stage-bubble-two,.play-area[data-toy=chocolate] .stage-bubble-four{color:#a9dcc8}
+
+.play-area[data-toy=chocolate] .toy-scene svg{display:block;overflow:visible}
+.play-area[data-toy=chocolate] .chocolate-awning{top:0;left:0;filter:drop-shadow(0 3px 0 #e7c6c21a)}
+
+/* A little caramel heart sign swinging under the awning. */
+.play-area[data-toy=chocolate] .chocolate-sign{top:30px;left:50%;width:24px;margin-left:-12px;transform-origin:50% 0;animation:chocolate-swing 6.5s ease-in-out infinite}
+.play-area[data-toy=chocolate] .chocolate-sign i{position:absolute;top:0;width:1px;height:12px;background:#cfa99d}
+.play-area[data-toy=chocolate] .chocolate-sign i:first-child{left:5px}
+.play-area[data-toy=chocolate] .chocolate-sign i:nth-child(2){right:5px}
+.play-area[data-toy=chocolate] .chocolate-sign svg{margin-top:11px;width:24px}
+
+/* Wall shelves. */
+.play-area[data-toy=chocolate] .chocolate-shelf>*{position:absolute}
+.play-area[data-toy=chocolate] .chocolate-plank{left:0;right:0;bottom:0;height:7px;background:#ecc9bb;border-bottom:3px solid #d6a998;box-shadow:0 5px 0 #e8cfc633}
+.play-area[data-toy=chocolate] .chocolate-plank:before,.play-area[data-toy=chocolate] .chocolate-plank:after{content:'';position:absolute;top:10px;width:5px;height:7px;background:#dcb2a3}
+.play-area[data-toy=chocolate] .chocolate-plank:before{left:16%}
+.play-area[data-toy=chocolate] .chocolate-plank:after{right:16%}
+.play-area[data-toy=chocolate] .chocolate-shelf-left{left:2.5%;top:18%;width:clamp(84px,15%,132px);aspect-ratio:132/86}
+.play-area[data-toy=chocolate] .chocolate-jar-candy{left:9%;bottom:7px;width:37%}
+.play-area[data-toy=chocolate] .chocolate-jar-truffle{left:53%;bottom:7px;width:35%}
+.play-area[data-toy=chocolate] .chocolate-glint{left:17%;top:36%;width:9px;height:9px;opacity:0;animation:chocolate-glint 5.2s ease-in-out infinite}
+.play-area[data-toy=chocolate] .chocolate-glint svg{width:100%;height:100%}
+.play-area[data-toy=chocolate] .chocolate-shelf-right{right:2.5%;top:19%;width:clamp(72px,12%,104px);aspect-ratio:104/100}
+.play-area[data-toy=chocolate] .chocolate-cake{left:10%;bottom:7px;width:80%}
+
+/* Paper doily under the bar. */
+.play-area[data-toy=chocolate] .chocolate-doily{left:19%;top:57%;width:68%;height:34%;opacity:.8}
+
+/* Hot cocoa on the counter; its steam puffs up while the bar is squeezed. */
+.play-area[data-toy=chocolate] .chocolate-mug{right:3.5%;bottom:24%;width:clamp(54px,9%,78px)}
+.play-area[data-toy=chocolate] .chocolate-steam{position:absolute;left:12%;bottom:86%;width:62%;height:120%;transform-origin:50% 100%;
+  transform:scale(calc(1 + var(--squeeze) * .5));transition:transform .3s ease}
+.play-area[data-toy=chocolate] .chocolate-steam svg{position:absolute;bottom:0;width:30%;opacity:0;animation:chocolate-steam 4.2s ease-in-out infinite}
+.play-area[data-toy=chocolate] .chocolate-steam svg:nth-child(1){left:0}
+.play-area[data-toy=chocolate] .chocolate-steam svg:nth-child(2){left:36%;animation-delay:-1.4s}
+.play-area[data-toy=chocolate] .chocolate-steam svg:nth-child(3){left:70%;animation-delay:-2.8s}
+
+/* Cocoa beans, a foil bonbon and a chocolate square scattered on the counter. */
+.play-area[data-toy=chocolate] .chocolate-treats{left:3.5%;bottom:24.5%;width:clamp(72px,13.5%,116px);aspect-ratio:96/26}
+.play-area[data-toy=chocolate] .chocolate-treats>*{position:absolute;bottom:0}
+.play-area[data-toy=chocolate] .chocolate-bean{width:14%}
+.play-area[data-toy=chocolate] .chocolate-bean:nth-child(1){left:0;bottom:20%;transform:rotate(-18deg)}
+.play-area[data-toy=chocolate] .chocolate-bean:nth-child(2){left:14%}
+.play-area[data-toy=chocolate] .chocolate-foil{left:32%;width:30%}
+.play-area[data-toy=chocolate] .chocolate-square{left:68%;width:14%;transform:rotate(8deg)}
+.play-area[data-toy=chocolate] .chocolate-bean:nth-child(5){left:88%;bottom:30%;transform:rotate(24deg)}
+
+@keyframes chocolate-steam{0%{transform:translateY(25%) scaleY(.7);opacity:0}30%{opacity:.85}100%{transform:translateY(-55%) scaleY(1.15);opacity:0}}
+@keyframes chocolate-swing{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg)}}
+@keyframes chocolate-glint{0%,62%,100%{transform:scale(.4);opacity:0}78%{transform:scale(1);opacity:.95}}

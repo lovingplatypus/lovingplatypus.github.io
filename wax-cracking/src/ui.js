@@ -1,4 +1,5 @@
 import { SQUISHY_TYPES } from './squishy-models.js';
+import { BACKDROPS } from './backdrops/index.js';
 
 const pixelHeart = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 3h4v2h4V3h4v2h2v5h-2v2h-2v2h-2v2H6v-2H4v-2H2v-2H0V5h2Z" fill="currentColor"/></svg>';
 const pixelSpark = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M6 0h4v4h2v2h4v4h-4v2h-2v4H6v-4H4v-2H0V6h4V4h2Z" fill="currentColor"/></svg>';
@@ -24,7 +25,9 @@ for (const toy of SQUISHY_TYPES) if (toy.ui) {
 const pixelBubble = '<svg viewBox="0 0 8 8" aria-hidden="true" shape-rendering="crispEdges"><path fill="#fffdf8" fill-opacity=".45" d="M2 1h4v1h1v4H6v1H2V6H1V2h1Z"/><path fill="currentColor" d="M2 0h4v1H2Zm4 1h1v1H6Zm1 1h1v4H7ZM6 6h1v1H6ZM2 7h4v1H2ZM1 6h1v1H1ZM0 2h1v4H0Zm1-1h1v1H1Z"/><path fill="#fff" d="M2 2h1v1H2Z"/></svg>';
 // Decorative stage behind the transparent WebGL canvas. Purely visual.
 const stageBackdrop = `<div class="stage-backdrop" aria-hidden="true">
-            <div class="stage-wall"></div><div class="stage-floor"></div><div class="stage-beam"></div>
+            <div class="stage-wall"></div><div class="stage-floor"></div>
+            ${BACKDROPS.map(({ id, html }) => `<div class="toy-scene" data-scene="${id}">${html}</div>`).join('')}
+            <div class="stage-beam"></div>
             <div class="stage-glow"></div><div class="stage-pool"></div><div class="stage-vignette"></div>
             <span class="stage-spark stage-spark-one">${pixelSpark}</span><span class="stage-spark stage-spark-two">${pixelSpark}</span><span class="stage-spark stage-spark-three">${pixelSpark}</span>
             <span class="stage-bubble stage-bubble-one">${pixelBubble}</span><span class="stage-bubble stage-bubble-two">${pixelBubble}</span><span class="stage-bubble stage-bubble-three">${pixelBubble}</span><span class="stage-bubble stage-bubble-four">${pixelBubble}</span>

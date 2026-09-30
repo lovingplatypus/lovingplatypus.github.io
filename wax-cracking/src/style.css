@@ -35,6 +35,9 @@ button:active:not(:disabled){transform:translate(1px,2px) scale(.97,.93);transit
 .play-area[data-toy=mangosteen]{--glow:#f1e7fb;--glow-tint:#cdb6df}
 .stage-backdrop{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
 .stage-backdrop>*{position:absolute}
+/* Per-toy scenery (src/backdrops): hidden until its toy is picked. */
+.toy-scene{inset:0;display:none;pointer-events:none}
+.toy-scene>*{position:absolute}
 .stage-wall{inset:0;background:
   radial-gradient(130% 62% at 50% -8%,#ece2f0 0%,#efe5ef 35%,transparent 72%),
   radial-gradient(38% 42% at 10% 36%,#f6dccdb3,transparent 70%),

@@ -37,6 +37,7 @@ Do not open `index.html` directly through `file://`; use a server.
 - **Squishies:** choose Butter, Platypus, Lychee, or Mangosteen from the toy shelf. Switching toys releases the current squeeze.
 - **Colors:** the butter bar also offers yellow, sage, lavender, and peach wax.
 - **Sound:** synthetic snaps follow newly fractured wax cells, with a quieter rubbing texture as compressed wax moves. The first click, touch, or key interaction unlocks audio.
+- **Direct link:** add `?toy=<id>` (e.g. `?toy=snail`) to open straight onto a squishy.
 - **Start fresh:** release pressure and reform the bar. If camera tracking remains on, its next frame will resume control.
 
 ## Publish on GitHub Pages
@@ -74,6 +75,7 @@ src/main.js            Interface, pressure state, and input controls
 src/style.css          Responsive pastel / pixel UI
 src/ui.js             Interface markup and pixel toy icons
 src/squishy-models.js  Toy definitions and smooth 3D accessories
+src/backdrops/         One CSS/SVG stage scene per toy (scoped to .play-area[data-toy=<id>])
 src/wax-physics.js     Pressure spring, deformation, and fracture state
 src/wax-scene.js       Three.js wax plates, soft core, and lighting
 src/hand-tracking.js   Camera lifecycle and MediaPipe inference

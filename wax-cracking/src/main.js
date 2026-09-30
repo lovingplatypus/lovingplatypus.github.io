@@ -218,6 +218,10 @@ document.querySelectorAll('.squishy-choice').forEach((button) => {
   });
 });
 
+// ?toy=<id> opens straight onto that squishy (handy for sharing one).
+const startToy = new URLSearchParams(location.search).get('toy');
+if (startToy) document.querySelector(`.squishy-choice[data-squishy="${CSS.escape(startToy)}"]`)?.click();
+
 playArea.addEventListener('animationend', (event) => {
   if (event.animationName === 'stage-welcome') playArea.classList.remove('is-switching');
 });

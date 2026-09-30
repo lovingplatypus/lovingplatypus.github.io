@@ -1,0 +1,88 @@
+/* ─── mangosteen stage ─────────────────────────────────────────────────────────── */
+.play-area[data-toy=mangosteen] .toy-scene[data-scene=mangosteen]{display:block}
+
+/* Dusk sky: lavender up top melting into peach, with a pale jungle treeline on the horizon. */
+.play-area[data-toy=mangosteen]{--glow:#f8f0fb;--glow-tint:#d9c3e6}
+.play-area[data-toy=mangosteen] .stage-wall{background:
+  radial-gradient(60% 46% at 50% 44%,#fbf3f1 0%,#f8ecee99 45%,transparent 75%),
+  radial-gradient(40% 38% at 8% 48%,#f9dccfb3,transparent 70%),
+  radial-gradient(40% 38% at 94% 46%,#f7d9d6a6,transparent 70%),
+  linear-gradient(#ddcceb 0%,#e8d7ee 22%,#f3dfe6 44%,#f9e6dc 60%,#f7e7d8 100%)}
+.play-area[data-toy=mangosteen] .stage-wall:before{inset:0 0 50%;opacity:.9;background:
+  radial-gradient(circle at 1.5px 1.5px,#fff8e6 1.2px,transparent 1.5px) 7px 11px/53px 47px,
+  radial-gradient(circle at 1.5px 1.5px,#f1dfb6 1px,transparent 1.3px) 31px 29px/71px 61px;
+  -webkit-mask-image:linear-gradient(#000 15%,transparent);mask-image:linear-gradient(#000 15%,transparent)}
+.play-area[data-toy=mangosteen] .stage-wall:after{content:'';position:absolute;left:0;right:0;top:39%;height:17%;opacity:.8;background:
+  radial-gradient(9% 60% at 4% 100%,#e2d2e8 97%,transparent 100%),
+  radial-gradient(7% 46% at 14% 100%,#e8d9ec 97%,transparent 100%),
+  radial-gradient(10% 70% at 25% 100%,#e4d4ea 97%,transparent 100%),
+  radial-gradient(8% 44% at 38% 100%,#eadcec 97%,transparent 100%),
+  radial-gradient(9% 52% at 62% 100%,#eadcec 97%,transparent 100%),
+  radial-gradient(10% 72% at 76% 100%,#e4d4ea 97%,transparent 100%),
+  radial-gradient(7% 48% at 87% 100%,#e8d9ec 97%,transparent 100%),
+  radial-gradient(9% 64% at 97% 100%,#e2d2e8 97%,transparent 100%),
+  linear-gradient(transparent 70%,#ecdfeb 70%);
+  -webkit-mask-image:linear-gradient(90deg,#000,#0008 35%,#0003 50%,#0008 65%,#000);mask-image:linear-gradient(90deg,#000,#0008 35%,#0003 50%,#0008 65%,#000)}
+
+/* A woven rattan tray for a tabletop. */
+.play-area[data-toy=mangosteen] .stage-floor{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' shape-rendering='crispEdges'%3E%3Crect width='32' height='32' fill='%23f7e8cf'/%3E%3Cg fill='%23ecd2a8'%3E%3Cpath d='M0 1h16v3H0zM0 6h16v3H0zM0 11h16v3H0zM16 17h16v3H16zM16 22h16v3H16zM16 27h16v3H16zM17 0h3v16h-3zM22 0h3v16h-3zM27 0h3v16h-3zM1 16h3v16H1zM6 16h3v16H6zM11 16h3v16h-3z'/%3E%3C/g%3E%3C/svg%3E") 50% 100%/44px 44px}
+
+/* Shared layers: warm gold sparkles, no bubbles (fireflies take their place). */
+.play-area[data-toy=mangosteen] .stage-spark{color:#ecc877}
+.play-area[data-toy=mangosteen] .stage-spark-two{color:#d2b3e6}
+.play-area[data-toy=mangosteen] .stage-bubble{display:none}
+.play-area[data-toy=mangosteen] .stage-vignette{background:radial-gradient(ellipse 72% 70% at 50% 46%,transparent 58%,#8d6a9a26 100%)}
+
+/* Moon and pixel stars. */
+.play-area[data-toy=mangosteen] .mangosteen-moon{left:77%;top:26%;width:24px;height:24px;filter:drop-shadow(0 0 6px #fff3d3)}
+.play-area[data-toy=mangosteen] .mangosteen-moon svg{width:100%;height:100%}
+.play-area[data-toy=mangosteen] .mangosteen-star{width:7px;height:7px;color:#f4dc9e;opacity:.8;animation:mangosteen-twinkle 5s ease-in-out infinite}
+.play-area[data-toy=mangosteen] .mangosteen-star-b{width:5px;height:5px;color:#fff7e4;animation-delay:-2s}
+.play-area[data-toy=mangosteen] .mangosteen-star-c{width:5px;height:5px;animation-delay:-3.4s;opacity:.55}
+.play-area[data-toy=mangosteen] .mangosteen-star svg{width:100%;height:100%}
+
+/* Leaves silhouetted at the edges, swaying a touch. */
+.play-area[data-toy=mangosteen] .mangosteen-leaves{top:20%;height:64%;width:24%}
+.play-area[data-toy=mangosteen] .mangosteen-leaves-l{left:0}
+.play-area[data-toy=mangosteen] .mangosteen-leaves-r{right:0}
+.play-area[data-toy=mangosteen] .mangosteen-sway-a,.play-area[data-toy=mangosteen] .mangosteen-sway-b{transform-box:view-box;transform-origin:0 60%;animation:mangosteen-leaf 9s ease-in-out infinite}
+.play-area[data-toy=mangosteen] .mangosteen-sway-b{animation-duration:11s;animation-delay:-4s}
+
+/* String lights with twinkling bulbs. */
+.play-area[data-toy=mangosteen] .mangosteen-wire{inset:0;width:100%;height:100%;overflow:visible}
+.play-area[data-toy=mangosteen] .mangosteen-bulb{width:10px;height:14px;translate:-50% -1px;animation:mangosteen-bulb 3.2s ease-in-out infinite}
+.play-area[data-toy=mangosteen] .mangosteen-bulb svg{width:100%;height:100%;position:relative}
+.play-area[data-toy=mangosteen] .mangosteen-bulb:before{content:'';position:absolute;left:50%;top:65%;width:30px;height:30px;translate:-50% -50%;border-radius:50%;
+  background:radial-gradient(closest-side,color-mix(in srgb,var(--c) 70%,transparent),transparent);opacity:calc(.6 + var(--squeeze) * .4)}
+
+/* Queen of fruits: a tiny golden crown charm where the swags meet. */
+.play-area[data-toy=mangosteen] .mangosteen-crown{left:50%;top:0;width:38px;margin-left:-19px;transform-origin:50% 0;animation:mangosteen-sway 5s ease-in-out infinite;
+  rotate:calc(var(--squeeze) * -6deg);transition:rotate .4s ease;filter:drop-shadow(0 0 5px #ffe8a8)}
+.play-area[data-toy=mangosteen] .mangosteen-crown i{display:block;width:2px;height:16px;margin:0 auto;background:#a88aa6}
+.play-area[data-toy=mangosteen] .mangosteen-crown svg{width:38px;height:29px}
+
+/* Paper lanterns hanging from the canopy; they swing and brighten when squeezed. */
+.play-area[data-toy=mangosteen] .mangosteen-lantern{top:0;width:36px;margin-left:-18px;transform-origin:50% 0;animation:mangosteen-sway 6.5s ease-in-out infinite;transition:rotate .45s ease}
+.play-area[data-toy=mangosteen] .mangosteen-lantern:before{content:'';display:block;width:2px;height:var(--string);margin:0 auto;background:#a88aa6}
+.play-area[data-toy=mangosteen] .mangosteen-lantern svg{width:36px;height:51px;position:relative}
+.play-area[data-toy=mangosteen] .mangosteen-lantern-l{left:10%;--string:64px;rotate:calc(var(--squeeze) * 9deg)}
+.play-area[data-toy=mangosteen] .mangosteen-lantern-r{left:90%;--string:84px;animation-duration:7.5s;animation-delay:-3s;rotate:calc(var(--squeeze) * -9deg)}
+.play-area[data-toy=mangosteen] .mangosteen-lglow{position:absolute;left:50%;bottom:4px;width:96px;height:96px;margin-left:-48px;border-radius:50%;
+  background:radial-gradient(closest-side,#ffe4b0cc,#ffe4b000);opacity:calc(.55 + var(--squeeze) * .45);scale:calc(1 + var(--squeeze) * .25)}
+.play-area[data-toy=mangosteen] .mangosteen-lantern-r .mangosteen-lglow{background:radial-gradient(closest-side,#ffd4e0cc,#ffd4e000)}
+
+/* Market goods on the tray corners. */
+.play-area[data-toy=mangosteen] .mangosteen-basket{left:4%;bottom:23%;width:clamp(62px,10%,84px);height:auto;aspect-ratio:26/17}
+.play-area[data-toy=mangosteen] .mangosteen-half{right:4%;bottom:23%;width:clamp(64px,10%,84px);height:auto;aspect-ratio:2/1}
+
+/* Fireflies: drift and blink; a squeeze sends them scattering outward. */
+.play-area[data-toy=mangosteen] .mangosteen-fly{width:4px;height:4px;translate:calc(var(--squeeze) * var(--dx)) calc(var(--squeeze) * var(--dy));transition:translate .5s cubic-bezier(.2,.8,.3,1)}
+.play-area[data-toy=mangosteen] .mangosteen-fly i{display:block;width:100%;height:100%;background:#ffd772;box-shadow:0 0 6px 2px #ffe39a,0 0 14px 4px #ffe8b366;
+  animation:mangosteen-drift 13s ease-in-out infinite,mangosteen-blink 3.6s ease-in-out infinite}
+
+@keyframes mangosteen-twinkle{0%,100%{opacity:.3;transform:scale(.7)}50%{opacity:.9;transform:scale(1)}}
+@keyframes mangosteen-leaf{0%,100%{transform:rotate(0deg)}50%{transform:rotate(2deg)}}
+@keyframes mangosteen-bulb{0%,100%{opacity:1}50%{opacity:.72}}
+@keyframes mangosteen-sway{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
+@keyframes mangosteen-drift{0%,100%{transform:translate(0,0)}25%{transform:translate(10px,-14px)}50%{transform:translate(-6px,-24px)}75%{transform:translate(-12px,-8px)}}
+@keyframes mangosteen-blink{0%,100%{opacity:.25}45%,60%{opacity:1}}

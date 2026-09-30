@@ -1,0 +1,75 @@
+/* ─── platypus stage ─────────────────────────────────────────────────────────── */
+.play-area[data-toy=platypus] .toy-scene[data-scene=platypus]{display:block}
+
+/* A quiet creek at golden hour: lilac-peach sky, a far gum-tree bank, still teal water. */
+.play-area[data-toy=platypus]{--glow:#fdf0dc;--glow-tint:#cfe6dc}
+.play-area[data-toy=platypus] .stage-wall{background:
+  radial-gradient(55% 30% at 50% 50%,#fff3dccc,transparent 70%),
+  radial-gradient(40% 40% at 8% 20%,#f1dde6aa,transparent 70%),
+  linear-gradient(#eedee6 0%,#f5dccd 24%,#fae8d3 44%,#fcefdb 51%,#d7e8de 51.2%,#c9e0d6 72%,#bfdad0 100%)}
+.play-area[data-toy=platypus] .stage-wall:before{display:none}
+/* Water "tablecloth": staggered pixel ripple dashes receding toward the far bank. */
+.play-area[data-toy=platypus] .stage-floor{
+  background:
+    conic-gradient(at 22px 3px,#0000 75%,#f5fbf7d0 0) 0 0/104px 44px,
+    conic-gradient(at 12px 3px,#0000 75%,#eef7f2b8 0) 52px 22px/104px 44px,
+    #c3ddd3;
+  -webkit-mask-image:linear-gradient(to top,#000 12%,#0009 26%,#0000 40%);mask-image:linear-gradient(to top,#000 12%,#0009 26%,#0000 40%)}
+.play-area[data-toy=platypus] .stage-beam{background:linear-gradient(#fff4dfa6,#fff4df2e 70%,#fff4df00)}
+.play-area[data-toy=platypus] .stage-pool{background:radial-gradient(closest-side,#f8fcf5e8,#e2f1e999 58%,#e2f1e900)}
+.play-area[data-toy=platypus] .stage-vignette{background:radial-gradient(ellipse 72% 70% at 50% 46%,transparent 58%,#6f8f8424 100%)}
+/* Sparkles become warm fireflies; bubbles pop up from under the water and burst at the surface. */
+.play-area[data-toy=platypus] .stage-spark{color:#f1c779}
+.play-area[data-toy=platypus] .stage-spark-two{color:#f4d58f}
+.play-area[data-toy=platypus] .stage-bubble{color:#9fcac1;animation-name:platypus-bubble;bottom:25%}
+
+.play-area[data-toy=platypus] .toy-scene svg{height:auto;overflow:visible}
+.play-area[data-toy=platypus] .platypus-cloud{width:7%;opacity:.85;animation:platypus-drift 26s ease-in-out infinite alternate}
+.play-area[data-toy=platypus] .platypus-cloud-a{left:37%;top:7%}
+.play-area[data-toy=platypus] .platypus-cloud-b{left:61%;top:15%;width:5%;opacity:.7;animation-delay:-9s}
+.play-area[data-toy=platypus] .platypus-gum{left:16%;top:-2%;width:16%;min-width:78px;rotate:9deg;transform-origin:0 0}
+.play-area[data-toy=platypus] .platypus-gum-sway{transform-box:fill-box;transform-origin:50% 0;animation:platypus-sway 9s ease-in-out infinite;animation-delay:-4s}
+.play-area[data-toy=platypus] svg.platypus-far{left:0;top:37%;width:100%;height:15%}
+
+/* Soft rings spreading around the toy; they widen while it's squeezed. */
+.play-area[data-toy=platypus] .platypus-rings{left:50%;top:73%;width:62%;aspect-ratio:4.4;translate:-50% -50%;scale:calc(1 + var(--squeeze) * .28);transition:scale .25s ease-out}
+.play-area[data-toy=platypus] .platypus-rings i{position:absolute;inset:0;border-radius:50%;border:2px solid #f4fbf6;opacity:0;animation:platypus-ring 9s ease-out infinite}
+.play-area[data-toy=platypus] .platypus-rings i:nth-child(2){animation-delay:-3s}
+.play-area[data-toy=platypus] .platypus-rings i:nth-child(3){animation-delay:-6s}
+
+.play-area[data-toy=platypus] .platypus-bank{left:0;bottom:24%;width:26%}
+.play-area[data-toy=platypus] .platypus-peek{animation:platypus-blink 6s steps(1) infinite}
+.play-area[data-toy=platypus] .platypus-reeds{transform-origin:50% 100%;transition:rotate .3s ease-out}
+.play-area[data-toy=platypus] .platypus-reeds-left{left:1%;bottom:40%;width:10%;rotate:calc(var(--squeeze) * -5deg)}
+.play-area[data-toy=platypus] .platypus-reeds-right{right:0;bottom:19%;width:15%;rotate:calc(var(--squeeze) * 5deg)}
+.play-area[data-toy=platypus] .platypus-sway,.play-area[data-toy=platypus] .platypus-sway-back{transform-box:fill-box;transform-origin:50% 100%;animation:platypus-sway 6s ease-in-out infinite}
+.play-area[data-toy=platypus] .platypus-sway-back{animation-duration:8s;animation-delay:-3s}
+.play-area[data-toy=platypus] .platypus-stone{right:10%;bottom:21.5%;width:8.5%}
+.play-area[data-toy=platypus] .platypus-lily{animation:platypus-bob 5s ease-in-out infinite}
+.play-area[data-toy=platypus] .platypus-lily-a{right:1.5%;bottom:22.5%;width:10%;animation-delay:-2s}
+.play-area[data-toy=platypus] .platypus-lily-b{left:24%;bottom:22%;width:6%}
+.play-area[data-toy=platypus] .platypus-lily-c{right:15%;top:56%;width:4%;opacity:.8;animation-delay:-3.5s}
+.play-area[data-toy=platypus] .platypus-fly{left:12%;top:26%;width:3.6%;min-width:24px;animation:platypus-hover 11s ease-in-out infinite}
+.play-area[data-toy=platypus] .platypus-wings{animation:platypus-flutter .5s steps(2) infinite}
+
+/* Phones: the frosted bar is taller, so lift the waterline scenery above it. */
+@media(max-width:700px){
+  .play-area[data-toy=platypus] .platypus-bank{bottom:30%;width:28%}
+  .play-area[data-toy=platypus] .platypus-reeds-left{bottom:46%;width:11%}
+  .play-area[data-toy=platypus] .platypus-reeds-right{bottom:26%;width:16%}
+  .play-area[data-toy=platypus] .platypus-stone{bottom:29%;right:9%;width:10%}
+  .play-area[data-toy=platypus] .platypus-lily-a{bottom:29.5%;width:12%}
+  .play-area[data-toy=platypus] .platypus-lily-b{bottom:29%;left:26%;width:8%}
+  .play-area[data-toy=platypus] .platypus-rings{top:70%}
+  .play-area[data-toy=platypus] .platypus-gum{left:30%;top:-2%;width:20%}
+  .play-area[data-toy=platypus] .platypus-cloud-a{left:58%;top:13%}
+  .play-area[data-toy=platypus] .platypus-cloud-b{display:none}
+}
+@keyframes platypus-ring{0%{transform:scale(.62);opacity:0}20%{opacity:.75}100%{transform:scale(1.12);opacity:0}}
+@keyframes platypus-sway{0%,100%{transform:rotate(-1.5deg)}50%{transform:rotate(1.8deg)}}
+@keyframes platypus-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px)}}
+@keyframes platypus-drift{to{transform:translateX(18px)}}
+@keyframes platypus-hover{0%,100%{transform:translate(0,0)}30%{transform:translate(14px,-6px)}55%{transform:translate(6px,4px)}80%{transform:translate(-6px,-3px)}}
+@keyframes platypus-flutter{50%{opacity:.45}}
+@keyframes platypus-blink{0%,92%,97%{opacity:1}94%{opacity:0}}
+@keyframes platypus-bubble{0%{transform:translateY(0) scale(.6);opacity:0}15%{opacity:.85}80%{transform:translateY(-30px) scale(1);opacity:.75}90%{transform:translateY(-34px) scale(1.4);opacity:0}100%{transform:translateY(-34px) scale(1.4);opacity:0}}

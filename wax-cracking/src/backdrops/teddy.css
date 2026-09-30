@@ -1,0 +1,79 @@
+/* ─── teddy stage ─────────────────────────────────────────────────────────── */
+.play-area[data-toy=teddy] .toy-scene[data-scene=teddy]{display:block}
+
+/* Dusky periwinkle nursery wall, warm cream behind the bear so it pops. */
+.play-area[data-toy=teddy] .stage-wall{background:
+  radial-gradient(46% 58% at 50% 46%,#fcf3e8 0%,#f9efe9d9 42%,transparent 78%),
+  radial-gradient(34% 40% at 8% 34%,#f3dbe4a6,transparent 70%),
+  radial-gradient(30% 36% at 94% 40%,#fbe9cc80,transparent 70%),
+  linear-gradient(#d8dcf2 0%,#e2def1 30%,#ede3ee 56%,#f6ece6 100%)}
+/* Wallpaper: soft vertical stripes with tiny staggered dots. */
+.play-area[data-toy=teddy] .stage-wall:before{inset:0 0 42%;opacity:.9;background:
+  radial-gradient(circle at 50% 50%,#fffaf6 1.2px,transparent 1.7px) 0 0/28px 28px,
+  radial-gradient(circle at 50% 50%,#c9cdec 1.2px,transparent 1.7px) 14px 14px/28px 28px,
+  repeating-linear-gradient(90deg,#ffffff26 0 14px,transparent 14px 28px)}
+
+/* Floor: a pastel patchwork quilt with pale seams and polka dots. */
+.play-area[data-toy=teddy] .stage-floor{background:
+  radial-gradient(circle,#ffffff80 1.3px,transparent 1.8px) 7px 7px/14.5px 14.5px,
+  linear-gradient(90deg,#fffaf5d0 1.5px,transparent 1.5px) 50% 100%/58px 58px,
+  linear-gradient(#fffaf5d0 1.5px,transparent 1.5px) 50% 100%/58px 58px,
+  conic-gradient(#f3d9e1 25%,#e0e4f5 0 50%,#fbf1e2 0 75%,#e9ddf1 0) 50% 100%/116px 116px}
+
+/* Warm cream halo so the oat-coloured bear reads against the blue wall. */
+.play-area[data-toy=teddy] .stage-glow{background:radial-gradient(closest-side,#fff8ec,#fdf2e4a6 50%,transparent)}
+.play-area[data-toy=teddy] .stage-pool{background:radial-gradient(closest-side,#fffaf1f2,#f2e0e56b 62%,#fff8ee00)}
+.play-area[data-toy=teddy] .stage-spark{color:#b7c0ea}
+.play-area[data-toy=teddy] .stage-spark-two{color:#f0bccb}
+.play-area[data-toy=teddy] .stage-bubble{display:none}
+
+.play-area[data-toy=teddy] .toy-scene svg{display:block;height:auto;overflow:visible}
+
+/* Window with dusk sky, top-left under the wax switch. */
+.play-area[data-toy=teddy] .teddy-window{left:3.5%;top:15%;width:clamp(64px,15%,128px);aspect-ratio:48/58}
+.play-area[data-toy=teddy] .teddy-tw{transform-box:fill-box;transform-origin:center;animation:teddy-twinkle 3.6s ease-in-out infinite}
+.play-area[data-toy=teddy] .teddy-stars{opacity:calc(.7 + var(--squeeze) * .3)}
+.play-area[data-toy=teddy] .teddy-tw-1{animation-delay:-.9s;animation-duration:4.4s}
+.play-area[data-toy=teddy] .teddy-tw-2{animation-delay:-2.1s}
+.play-area[data-toy=teddy] .teddy-tw-3{animation-delay:-1.4s;animation-duration:5s}
+.play-area[data-toy=teddy] .teddy-tw-4{animation-delay:-3s;animation-duration:4s}
+
+/* Bunting across the ceiling. */
+.play-area[data-toy=teddy] .teddy-bunting{left:20%;top:0;width:43%;aspect-ratio:120/18;opacity:.92}
+
+/* Mobile: sways from its hook and slowly "turns" (squeeze nudges it). */
+.play-area[data-toy=teddy] .teddy-mobile{right:15.5%;top:0;width:clamp(92px,20%,172px);aspect-ratio:68/60;
+  transform-origin:50% 0;animation:teddy-sway 8s ease-in-out infinite;rotate:calc(var(--squeeze) * 7deg);transition:rotate .5s ease}
+.play-area[data-toy=teddy] .teddy-mobile-spin{transform-box:fill-box;transform-origin:50% 0;animation:teddy-turn 11s ease-in-out infinite}
+
+/* Mushroom night-light on the quilt with a breathing glow. */
+.play-area[data-toy=teddy] .teddy-nightlight{right:15%;bottom:33%;width:clamp(26px,4.6%,40px);aspect-ratio:1}
+.play-area[data-toy=teddy] .teddy-nl-glow{right:calc(15% + clamp(26px,4.6%,40px) / 2);bottom:calc(33% + clamp(26px,4.6%,40px) * .45);width:clamp(100px,19%,170px);aspect-ratio:1;
+  translate:50% 50%;border-radius:50%;background:radial-gradient(closest-side,#ffe2a0d9,#ffeab87a 42%,transparent);
+  animation:teddy-glow 6s ease-in-out infinite;scale:calc(1 + var(--squeeze) * .25)}
+
+/* Blocks bottom-left, heart pillow bottom-right, sitting on the quilt. */
+.play-area[data-toy=teddy] .teddy-blocks{left:4%;bottom:max(23%,112px);width:clamp(56px,10.5%,90px);aspect-ratio:28/27}
+.play-area[data-toy=teddy] .teddy-pillow{right:4.5%;bottom:max(23.5%,114px);width:clamp(40px,7.5%,64px);aspect-ratio:13/11;transform-origin:50% 100%;
+  scale:calc(1 + var(--squeeze) * .12) calc(1 - var(--squeeze) * .12);rotate:8deg}
+
+/* Sleepy z's drift up by the bear's head; a squeeze wakes it into hearts. */
+.play-area[data-toy=teddy] .teddy-zzz,.play-area[data-toy=teddy] .teddy-love{left:25%;top:12%;width:11%;aspect-ratio:1}
+.play-area[data-toy=teddy] .teddy-zzz{opacity:calc(1 - var(--squeeze) * 2.2)}
+.play-area[data-toy=teddy] .teddy-zzz span,.play-area[data-toy=teddy] .teddy-love span{position:absolute;display:block}
+.play-area[data-toy=teddy] .teddy-zzz span{opacity:0;animation:teddy-z 6s ease-in-out infinite}
+.play-area[data-toy=teddy] .teddy-z-1{width:26%;left:60%;top:68%}
+.play-area[data-toy=teddy] .teddy-z-2{width:20%;left:60%;top:68%;animation-delay:-2s!important}
+.play-area[data-toy=teddy] .teddy-z-3{width:15%;left:60%;top:68%;animation-delay:-4s!important}
+.play-area[data-toy=teddy] .teddy-love span{opacity:calc(var(--squeeze) * 1.8 - .25);transition:opacity .2s ease,translate .35s ease,scale .35s ease;
+  translate:0 calc(var(--squeeze) * -28px);scale:calc(.3 + var(--squeeze) * .9)}
+.play-area[data-toy=teddy] .teddy-love-1{width:34%;left:52%;top:52%}
+.play-area[data-toy=teddy] .teddy-love-2{width:24%;left:18%;top:36%;translate:calc(var(--squeeze) * -10px) calc(var(--squeeze) * -22px)!important}
+.play-area[data-toy=teddy] .teddy-love-3{width:20%;left:80%;top:30%;translate:calc(var(--squeeze) * 6px) calc(var(--squeeze) * -24px)!important}
+
+@keyframes teddy-twinkle{0%,100%{transform:scale(.6);opacity:.35}50%{transform:scale(1.15);opacity:1}}
+@keyframes teddy-sway{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
+@keyframes teddy-turn{0%,100%{transform:scaleX(1)}25%{transform:scaleX(.72)}50%{transform:scaleX(-.95)}75%{transform:scaleX(.72)}}
+@keyframes teddy-glow{0%,100%{opacity:.7}50%{opacity:1}}
+@keyframes teddy-z{0%{opacity:0;transform:translate(0,0) scale(.6)}20%{opacity:.9}80%{opacity:.5}100%{opacity:0;transform:translate(-120%,-260%) scale(1.1)}}
+

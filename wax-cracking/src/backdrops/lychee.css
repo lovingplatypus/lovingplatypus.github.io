@@ -1,0 +1,68 @@
+/* ─── lychee stage ─────────────────────────────────────────────────────────── */
+.play-area[data-toy=lychee] .toy-scene[data-scene=lychee]{display:block}
+
+/* Peach-blush sky fading to cream, then a sage meadow at the horizon. */
+.play-area[data-toy=lychee]{--glow:#fff8ec;--glow-tint:#cfe2bf}
+.play-area[data-toy=lychee] .stage-wall{background:
+  radial-gradient(60% 50% at 50% 30%,#fffaf1 0%,#fff8ee88 45%,transparent 75%),
+  radial-gradient(40% 46% at 6% 8%,#fbd9d4 0%,transparent 70%),
+  radial-gradient(40% 46% at 96% 4%,#fcdcd2 0%,transparent 70%),
+  linear-gradient(#fbe4dc 0%,#fdf0e6 26%,#fdf6ec 42%,#eef2de 50%,#e7eed6 100%)}
+/* Tiny cream specks in the sky, like blossoms far off. */
+.play-area[data-toy=lychee] .stage-wall:before{inset:0 0 58%;opacity:.8;background:
+  radial-gradient(circle at 2px 2px,#fffdf8 1.3px,transparent 1.5px) 0 0/26px 22px,
+  radial-gradient(circle at 2px 2px,#f7d3d0 1px,transparent 1.3px) 13px 11px/26px 22px}
+/* A soft far-off orchard of round lychee trees along the horizon. */
+.play-area[data-toy=lychee] .stage-wall:after{content:'';position:absolute;left:-3%;right:-3%;top:36%;height:15%;opacity:.95;background:
+  radial-gradient(34px 30px at 50% 100%,#d7e4c4 97%,transparent 100%) 0 100%/64px 100% repeat-x,
+  radial-gradient(46px 40px at 50% 100%,#e2ebd1 97%,transparent 100%) 26px 100%/90px 100% repeat-x;
+  -webkit-mask-image:linear-gradient(90deg,#000 0%,#0008 35%,#0003 50%,#0008 65%,#000 100%);mask-image:linear-gradient(90deg,#000 0%,#0008 35%,#0003 50%,#0008 65%,#000 100%)}
+
+/* Mint gingham picnic blanket. */
+.play-area[data-toy=lychee] .stage-floor{background:
+  linear-gradient(90deg,#b9d7ae70 50%,transparent 0) 50% 100%/58px 58px,
+  linear-gradient(#b9d7ae70 50%,transparent 0) 50% 100%/58px 58px,
+  #fcf8ef}
+.play-area[data-toy=lychee] .stage-beam{background:linear-gradient(#fffbf2a6,#fffbf226 70%,#fffbf200)}
+
+/* Corner branches: pixel leaves, blossoms and hanging lychee clusters. */
+.play-area[data-toy=lychee] .lychee-sway{top:clamp(34px,9.5%,50px);transform-origin:0 0;animation:lychee-sway 9s ease-in-out infinite;
+  rotate:calc(var(--squeeze) * 2.5deg);transition:rotate .35s cubic-bezier(.34,1.56,.64,1)}
+.play-area[data-toy=lychee] .lychee-sway svg{display:block;width:100%;height:auto}
+.play-area[data-toy=lychee] .lychee-sway-left{left:-1%;width:clamp(180px,33%,290px)}
+.play-area[data-toy=lychee] .lychee-sway-right{right:-1%;width:clamp(160px,28%,250px);transform-origin:100% 0;
+  animation-duration:11s;animation-delay:-4s;rotate:calc(var(--squeeze) * -2.5deg)}
+.play-area[data-toy=lychee] .lychee-lantern-wrap{position:absolute;left:3.5%;top:16%;width:19.6%;transform-origin:50% 0;animation:lychee-swing 6s ease-in-out infinite}
+.play-area[data-toy=lychee] .lychee-lantern{position:relative;display:block;width:100%;height:auto}
+.play-area[data-toy=lychee] .lychee-lantern-wrap:before{content:'';position:absolute;left:-90%;right:-90%;top:22%;aspect-ratio:1;border-radius:50%;
+  background:radial-gradient(closest-side,#ffd9b0cc,#ffe4c400);animation:lychee-glow 5s ease-in-out infinite}
+
+/* Little picnic on the blanket, clear of the name label and hint pill. */
+.play-area[data-toy=lychee] .lychee-plate{left:2.5%;bottom:max(24%,112px);width:clamp(104px,18%,160px);height:auto}
+.play-area[data-toy=lychee] .lychee-basket{right:3%;bottom:max(24%,112px);width:clamp(80px,13%,116px);height:auto}
+
+/* Petals drifting down. */
+.play-area[data-toy=lychee] .lychee-petal{top:-3%;width:10px;height:8px;opacity:0;animation:lychee-fall 17s linear infinite}
+.play-area[data-toy=lychee] .lychee-petal svg,.play-area[data-toy=lychee] .lychee-drop svg{display:block;width:100%;height:100%}
+.play-area[data-toy=lychee] .lychee-petal-1{left:12%;animation-delay:-3s}
+.play-area[data-toy=lychee] .lychee-petal-2{left:36%;width:8px;height:6px;animation-delay:-9s;animation-duration:21s}
+.play-area[data-toy=lychee] .lychee-petal-3{left:70%;animation-delay:-14s;animation-duration:19s}
+.play-area[data-toy=lychee] .lychee-petal-4{left:88%;width:8px;height:6px;animation-delay:-6s;animation-duration:15s}
+.play-area[data-toy=lychee] .lychee-petal-5{left:54%;width:6px;height:5px;animation-delay:-1s;animation-duration:23s}
+
+/* Juice droplets that pop out around the toy while it's squeezed. */
+.play-area[data-toy=lychee] .lychee-drop{width:14px;height:18px;opacity:calc(var(--squeeze) * 1.4 - .3);
+  transform:translateY(calc(var(--squeeze) * -14px)) scale(calc(.4 + var(--squeeze) * .6));transition:opacity .2s ease,transform .35s cubic-bezier(.34,1.56,.64,1)}
+.play-area[data-toy=lychee] .lychee-drop-1{left:27%;top:40%}
+.play-area[data-toy=lychee] .lychee-drop-2{left:31%;top:22%;width:10px;height:13px}
+.play-area[data-toy=lychee] .lychee-drop-3{right:27%;top:30%}
+
+/* Shared layers: blossom-white sparkles, petals instead of bubbles. */
+.play-area[data-toy=lychee] .stage-spark{color:#f3c2c8}
+.play-area[data-toy=lychee] .stage-spark-two{color:#b9d6a8}
+.play-area[data-toy=lychee] .stage-bubble{display:none}
+
+@keyframes lychee-sway{0%,100%{transform:rotate(0deg)}50%{transform:rotate(1.4deg)}}
+@keyframes lychee-glow{0%,100%{opacity:.55;transform:scale(.9)}50%{opacity:1;transform:scale(1.05)}}
+@keyframes lychee-swing{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg)}}
+@keyframes lychee-fall{0%{transform:translate(0,0) rotate(0deg);opacity:0}10%{opacity:.9}35%{transform:translate(18px,120px) rotate(90deg)}65%{transform:translate(-8px,240px) rotate(200deg);opacity:.75}85%{opacity:0}100%{transform:translate(10px,330px) rotate(300deg);opacity:0}}
