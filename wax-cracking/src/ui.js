@@ -42,7 +42,7 @@ export function renderUI(icon) {
     </div>
   </header>
   <main>
-    <div class="intro"><div><p class="eyebrow"><span class="pixel-spark">${pixelSpark}</span> A POCKET OF PEACE</p><h1>A little squish.<br class="mobile-break"> <em>A softer day.</em></h1></div></div>
+    <div class="intro"><div><p class="eyebrow"><span class="pixel-spark">${pixelSpark}</span> ANNA'S SQUISHIES</p><h1>A little squish.<br class="mobile-break"> <em>A softer day.</em></h1></div></div>
     <div class="workspace">
       <div class="toy-room">
         <section class="play-area" data-toy="butter" aria-label="Interactive wax squishy">

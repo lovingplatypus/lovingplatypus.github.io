@@ -14,7 +14,7 @@ import{n as e}from"./vision-tbA9NYcY.js";import{A as t,C as n,D as r,E as i,M as
     </div>
   </header>
   <main>
-    <div class="intro"><div><p class="eyebrow"><span class="pixel-spark">${Rt}</span> A POCKET OF PEACE</p><h1>A little squish.<br class="mobile-break"> <em>A softer day.</em></h1></div></div>
+    <div class="intro"><div><p class="eyebrow"><span class="pixel-spark">${Rt}</span> ANNA'S SQUISHIES</p><h1>A little squish.<br class="mobile-break"> <em>A softer day.</em></h1></div></div>
     <div class="workspace">
       <div class="toy-room">
         <section class="play-area" data-toy="butter" aria-label="Interactive wax squishy">
