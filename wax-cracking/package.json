@@ -1,0 +1,24 @@
+{
+  "name": "wax-room",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "An interactive wax-cracking squishy with local webcam hand tracking.",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "vite build",
+    "build:site": "vite build --outDir ../wax-room --emptyOutDir",
+    "preview": "vite preview --host 127.0.0.1",
+    "test": "node --test tests/*.test.js"
+  },
+  "dependencies": {
+    "@mediapipe/tasks-vision": "1.0.1",
+    "three": "0.186.1"
+  },
+  "devDependencies": {
+    "vite": "8.3.1"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  }
+}

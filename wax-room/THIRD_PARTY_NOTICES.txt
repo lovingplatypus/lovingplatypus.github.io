@@ -1,0 +1,34 @@
+Wax Room — third-party software notices
+
+THREE.JS 0.186.1
+https://github.com/mrdoob/three
+Copyright © 2010-2026 three.js authors
+License: MIT. Full license: licenses/three-MIT.txt
+Used as an unmodified npm dependency for rendering and geometry primitives.
+
+MEDIAPIPE TASKS VISION 1.0.1
+https://github.com/google-ai-edge/mediapipe
+Copyright The MediaPipe Authors
+License: Apache License 2.0. Full license: licenses/mediapipe-Apache-2.0.txt
+Used as an unmodified npm dependency. The app loads version-matched WASM
+from jsDelivr and the hand landmark model from Google's model storage.
+
+MEDIAPIPE OFFICIAL WEB SAMPLES
+https://github.com/google-ai-edge/mediapipe-samples-web
+Copyright 2026 The MediaPipe Authors
+License: Apache License 2.0; see licenses/mediapipe-Apache-2.0.txt.
+The HandLandmarker initialization and detectForVideo API usage were
+referenced from the official worker sample. Wax Room adds its own camera
+lifecycle, cancellation handling, overlay, and continuous grip estimator.
+
+OTHER RESEARCH
+Voronoi Fracture by Dorian Conq, Javascript-Voronoi by Raymond Hill, and
+three-pinata by Dan Greenheck were evaluated but are not distributed.
+The reversible wax shell, UI, and synthetic crackle audio are original.
+
+FONTS
+DM Sans and Pixelify Sans are requested through Google Fonts, with local fallback
+fonts when unavailable. Font binaries are not bundled in this repository.
+
+The user's reference video and the original creator's Blender files are
+not included in the website.

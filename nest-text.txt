@@ -27,12 +27,15 @@ Anna's Platypus Nest
 [4] big title, second line (the red italic one):
 of Gifts
 
+[5] small green line under the title (with the little down-arrow):
+Four gifts inside
+
 
 
 [TILE 1] — the red one, opens the letter
 ----------------------------------------
 
-[6] little badge in the corner of the picture:
+[6] the little "Open →" link next to the heading:
 Open
 
 [7] heading:
@@ -45,7 +48,7 @@ The Birthday Letter!
 [TILE 2] — the blue one, opens the game
 ---------------------------------------
 
-[9] little badge in the corner of the picture:
+[9] the little "Open →" link next to the heading:
 Open
 
 [10] heading:
@@ -58,7 +61,7 @@ The first ever game I built!
 [TILE 3] — the green one, opens the mixtape
 -------------------------------------------
 
-[12] little badge in the corner of the picture:
+[12] the little "Open →" link next to the heading:
 Open
 
 [13] heading:
@@ -68,14 +71,27 @@ The Mixtape
 Ten songs (of many) that made me think of you!
 
 
-[THE DASHED BOX] — the one that isn't built yet
------------------------------------------------
+[TILE 4] — the golden one, opens the wax room
+---------------------------------------------
 
-[15] heading:
-The fourth one, eventually?!
+[15] the little "Open →" link next to the heading:
+Open
 
-[16] line under it:
-Whenever the next one is built. It'll show up right here.
+[16] heading:
+Wax Room
+
+[17] blurb under the heading:
+A little squish for a softer day. Crack the wax with your hand, mouse or touch!
+
+
+[AFTER THE GIFTS] — the little note that more might come
+-------------------------------------------------------
+
+[19] the italic line:
+More might be on the way…
+
+[20] the smaller line under it:
+Whenever the next one is built, it'll show up right here.
 
 
 BOTTOM OF THE PAGE
